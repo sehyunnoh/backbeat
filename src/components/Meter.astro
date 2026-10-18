@@ -1,0 +1,10 @@
+---
+interface Props { ids: string[]; label?: string }
+const { ids, label } = Astro.props;
+---
+
+<div class="meter" data-progress-ids={ids.join(',')} data-empty="true">
+  {label && <div class="count"><span>{label}</span><span data-progress-count>0 / {ids.length}</span></div>}
+  {!label && <div class="count"><span data-progress-count>0 / {ids.length}</span></div>}
+  <div class="track"><div class="fill"></div></div>
+</div>

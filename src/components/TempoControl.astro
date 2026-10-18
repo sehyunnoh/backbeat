@@ -1,0 +1,84 @@
+---
+interface Props {
+  value?: number;
+  min?: number;
+  max?: number;
+  label?: string;
+  /** Smaller readout for use inside other widgets. */
+  compact?: boolean;
+}
+const { value = 80, min = 40, max = 200, label = 'Tempo', compact = false } = Astro.props;
+---
+
+<div class:list={['tempo', { compact }]} data-tempo data-min={min} data-max={max}>
+  <button type="button" class="step" data-dec aria-label={`${label}: slower`}>−</button>
+  <label class="readout">
+    <input type="number" data-bpm value={value} min={min} max={max} inputmode="numeric" aria-label={`${label} in BPM`} />
+    <span>BPM</span>
+  </label>
+  <button type="button" class="step" data-inc aria-label={`${label}: faster`}>+</button>
+  <input type="range" data-slider min={min} max={max} value={value} aria-label={`${label} slider`} />
+</div>
+
+<style>
+  .tempo {
+    display: grid;
+    grid-template-columns: 52px 1fr 52px;
+    grid-template-areas: 'dec read inc' 'slider slider slider';
+    gap: 0.6rem 0.75rem;
+    align-items: center;
+  }
+  .step {
+    grid-area: dec;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: var(--surface);
+    font: 700 1.6rem var(--font-display);
+    line-height: 1;
+    color: var(--ink);
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+  }
+  .step[data-inc] { grid-area: inc; }
+  .step:active { background: var(--accent-soft); }
+  .compact { grid-template-columns: 48px 1fr 48px; }
+  .compact .step { width: 48px; height: 48px; }
+  .compact .readout input { font-size: 2.2rem; }
+  .readout {
+    grid-area: read;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+  }
+  .readout input {
+    width: 100%;
+    max-width: 8rem;
+    text-align: center;
+    font: 800 3.2rem var(--font-display);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid var(--line);
+    padding: 0;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .readout input::-webkit-outer-spin-button,
+  .readout input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .readout input:focus { outline: none; border-color: var(--accent); }
+  .readout span { font: 700 0.75rem var(--font-display); letter-spacing: 0.14em; color: var(--ink-2); margin-top: 0.35rem; }
+  input[type='range'] {
+    grid-area: slider;
+    width: 100%;
+    height: 44px;
+    accent-color: var(--accent);
+    background: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+</style>

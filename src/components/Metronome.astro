@@ -1,0 +1,143 @@
+---
+import TempoControl from './TempoControl.astro';
+
+interface Props {
+  bpm?: number;
+  /** Lesson id: remembers the last BPM you practised this lesson at. */
+  lessonId?: string;
+  title?: string;
+}
+const { bpm = 80, lessonId, title = 'Metronome' } = Astro.props;
+---
+
+<section class="metro card" data-metronome data-lesson={lessonId} aria-label={title}>
+  <header>
+    <h3>{title}</h3>
+    <p class="hint">Tap the big button to start. Headphones or speakers on.</p>
+  </header>
+
+  <TempoControl value={bpm} min={40} max={200} />
+
+  <div class="dots" data-dots aria-hidden="true"></div>
+
+  <div class="opts">
+    <label>
+      Beats per bar
+      <select data-beats>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+      </select>
+    </label>
+    <label>
+      Click
+      <select data-sub>
+        <option value="1" selected>Quarter notes</option>
+        <option value="2">Eighth notes</option>
+      </select>
+    </label>
+  </div>
+
+  <button type="button" class="btn go" data-toggle aria-pressed="false">
+    <span data-label>Start</span>
+  </button>
+</section>
+
+<style>
+  .metro { display: grid; gap: 1.1rem; max-width: 460px; }
+  header h3 { margin: 0; font-size: 1.15rem; }
+  .hint { margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--ink-2); }
+  .dots { display: flex; justify-content: center; gap: 0.7rem; min-height: 28px; }
+  .dots :global(span) {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--surface-2); border: 2px solid var(--line);
+    transition: background 0.05s, transform 0.05s;
+  }
+  .dots :global(span.on) { background: var(--accent); border-color: var(--ink); transform: scale(1.18); }
+  .dots :global(span.on.first) { background: var(--kick); }
+  .opts { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
+  .opts label { display: grid; gap: 0.25rem; font: 700 0.8rem var(--font-display); letter-spacing: 0.04em; color: var(--ink-2); }
+  select {
+    min-height: 44px; padding: 0 0.6rem; font: 600 1rem var(--font-body);
+    border: 2px solid var(--ink); border-radius: 10px; background: var(--surface); color: var(--ink);
+  }
+  .go { width: 100%; min-height: 60px; font-size: 1.25rem; }
+  .go[aria-pressed='true'] { background: var(--ink); color: var(--bg); }
+</style>
+
+<script>
+  import { StepScheduler, announcePlaying, getCtx, onOtherPlaying, playVoice } from '../scripts/audio';
+  import { bindTempo } from '../scripts/tempo';
+  import { getProgress, setLessonBpm } from '../scripts/progress';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-metronome]')) {
+    const lessonId = root.dataset.lesson;
+    const tempoEl = root.querySelector<HTMLElement>('[data-tempo]')!;
+    const dots = root.querySelector<HTMLElement>('[data-dots]')!;
+    const beatsSel = root.querySelector<HTMLSelectElement>('[data-beats]')!;
+    const subSel = root.querySelector<HTMLSelectElement>('[data-sub]')!;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
+    const label = toggle.querySelector<HTMLElement>('[data-label]')!;
+
+    const beats = () => Number(beatsSel.value);
+    const sub = () => Number(subSel.value);
+
+    const tempo = bindTempo(tempoEl, (bpm) => {
+      if (lessonId) setLessonBpm(lessonId, bpm);
+    });
+    const saved = lessonId ? getProgress().lessons[lessonId]?.bpm : undefined;
+    if (saved) tempo.set(saved);
+
+    const buildDots = () => {
+      dots.replaceChildren(...Array.from({ length: beats() }, () => document.createElement('span')));
+    };
+    buildDots();
+
+    const scheduler = new StepScheduler({
+      stepDuration: () => 60 / tempo.get() / sub(),
+      onStep: (step, time) => {
+        const perBar = beats() * sub();
+        const inBar = step % perBar;
+        const onBeat = inBar % sub() === 0;
+        if (inBar === 0) playVoice('clickAccent', time);
+        else playVoice('click', time, onBeat ? 1 : 0.45);
+      },
+      onVisual: (step) => {
+        const perBar = beats() * sub();
+        const beat = Math.floor((step % perBar) / sub());
+        if ((step % perBar) % sub() !== 0) return;
+        dots.querySelectorAll('span').forEach((d, i) => {
+          d.classList.toggle('on', i === beat);
+          d.classList.toggle('first', i === beat && beat === 0);
+        });
+      },
+    });
+
+    const stop = () => {
+      scheduler.stop();
+      toggle.setAttribute('aria-pressed', 'false');
+      label.textContent = 'Start';
+      dots.querySelectorAll('span').forEach((d) => d.classList.remove('on', 'first'));
+    };
+    const start = () => {
+      announcePlaying(root);
+      getCtx();
+      scheduler.start();
+      toggle.setAttribute('aria-pressed', 'true');
+      label.textContent = 'Stop';
+    };
+
+    toggle.addEventListener('click', () => (scheduler.running ? stop() : start()));
+    const restartIfRunning = () => {
+      buildDots();
+      if (scheduler.running) {
+        scheduler.stop();
+        scheduler.start();
+      }
+    };
+    beatsSel.addEventListener('change', restartIfRunning);
+    subSel.addEventListener('change', restartIfRunning);
+    onOtherPlaying(root, stop);
+    document.addEventListener('visibilitychange', () => document.hidden && stop());
+  }
+</script>

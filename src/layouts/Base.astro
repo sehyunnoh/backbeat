@@ -1,0 +1,117 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '../styles/global.css';
+import { url } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Which top-nav item to highlight. */
+  section?: 'home' | 'learn' | 'metronome' | 'videos' | 'progress' | 'glossary';
+}
+const {
+  title,
+  description = 'Learn drums from zero. Step-by-step lessons, a metronome and practice patterns for beginners on an electronic kit.',
+  section,
+} = Astro.props;
+const fullTitle = title ? `${title} · Backbeat` : 'Backbeat · Learn drums from zero';
+
+const nav = [
+  { id: 'home', label: 'Home', href: url(''), icon: 'M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z' },
+  { id: 'learn', label: 'Learn', href: url('learn/'), icon: 'M4 5h7a3 3 0 0 1 3 3v12a3 3 0 0 0-3-3H4zM20 5h-4a2 2 0 0 0-2 2' },
+  { id: 'metronome', label: 'Metronome', href: url('metronome/'), icon: 'M9 3h6l3 18H6zM12 17l4-9' },
+  { id: 'videos', label: 'Videos', href: url('videos/'), icon: 'M3 6h14v12H3zM17 10l4-2v8l-4-2' },
+  { id: 'progress', label: 'Progress', href: url('progress/'), icon: 'M4 20V10M10 20V4M16 20v-7M22 20H2' },
+] as const;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fbf6ee" />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href={url('')} aria-label="Backbeat home">
+          <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.5" />
+            <circle cx="16" cy="16" r="6" fill="var(--bg)" stroke="var(--ink)" stroke-width="2.5" />
+          </svg>
+          <span>Backbeat</span>
+        </a>
+        <nav aria-label="Main">
+          {
+            nav.map((n) => (
+              <a href={n.href} aria-current={section === n.id ? 'page' : undefined}>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d={n.icon} />
+                </svg>
+                <span>{n.label}</span>
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Backbeat is a free practice companion for beginner drummers. Your progress is saved only in this browser.
+          Videos belong to their creators and open from YouTube.
+        </p>
+        <p><a href={url('glossary/')}>Glossary</a></p>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/progress-ui';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--bg); padding: 0.6rem 1rem; z-index: 100; }
+  .skip:focus { left: 8px; top: 8px; }
+
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1.5px solid var(--line); }
+  .site-header .bar { display: flex; align-items: center; justify-content: space-between; min-height: var(--nav-h); gap: 1rem; }
+  .brand { display: inline-flex; align-items: center; gap: 0.55rem; font: 800 1.35rem var(--font-display); color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+  .brand:hover { color: var(--ink); }
+
+  .site-header nav { display: flex; gap: 0.25rem; }
+  .site-header nav a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    min-height: 44px; padding: 0 0.85rem; border-radius: 999px;
+    color: var(--ink-2); text-decoration: none; font: 700 0.95rem var(--font-display);
+  }
+  .site-header nav a:hover { background: var(--surface-2); color: var(--ink); }
+  .site-header nav a[aria-current='page'] { background: var(--ink); color: var(--bg); }
+
+  main { min-height: 70vh; padding-block: 1.5rem 3rem; }
+  .site-footer { border-top: 1.5px solid var(--line); padding-block: 1.5rem 2rem; color: var(--ink-2); font-size: 0.9rem; }
+  .site-footer p { max-width: 70ch; margin-bottom: 0.5rem; }
+
+  /* Phones: nav becomes a bottom tab bar (thumb reach). */
+  @media (max-width: 720px) {
+    .site-header nav {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+      justify-content: space-around; gap: 0;
+      background: var(--surface); border-top: 1.5px solid var(--line);
+      padding: 0.3rem 0.25rem calc(0.3rem + env(safe-area-inset-bottom));
+    }
+    .site-header nav a { flex-direction: column; gap: 0.1rem; min-height: 52px; min-width: 56px; padding: 0.3rem 0.4rem; border-radius: 12px; font-size: 0.7rem; flex: 1; justify-content: center; }
+    body { padding-bottom: 76px; }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import VideoCard from '../components/VideoCard.astro';
+import { levels } from '../data/levels';
+import { allVideos } from '../lib/videos';
+import { getLessons, lessonHref } from '../lib/lessons';
+
+const lessons = await getLessons();
+
+// A video can serve several lessons; list it once, under the first lesson it belongs to.
+const seen = new Set<string>();
+const sections = lessons
+  .map((lesson) => {
+    const vids = allVideos.filter((v) => v.lessons.includes(lesson.id) && !seen.has(v.id));
+    vids.forEach((v) => seen.add(v.id));
+    return { lesson, vids };
+  })
+  .filter((s) => s.vids.length > 0);
+const ids = allVideos.map((v) => v.id).join(',');
+---
+
+<Base title="Videos" section="videos" description="Hand-picked YouTube videos for every Backbeat lesson.">
+  <div class="wrap">
+    <p class="eyebrow">Watch when you have a minute</p>
+    <h1>Videos</h1>
+    <p class="lead">
+      Hand-picked beginner videos, grouped by lesson. They are made by other teachers and open from YouTube.
+      Watched <strong data-video-count={ids}>0 / {allVideos.length}</strong>.
+    </p>
+
+    <nav class="jump" aria-label="Video levels">
+      {levels.map((lv) => <a class="btn small ghost" href={`#level-${lv.id}`}>Level {lv.id}</a>)}
+    </nav>
+
+    {levels.map((lv) => (
+      <section id={`level-${lv.id}`} class="level">
+        <h2>Level {lv.id}: {lv.title}</h2>
+        {sections.filter((s) => s.lesson.data.level === lv.id).map((s) => (
+          <div class="topic">
+            <h3><a href={lessonHref(s.lesson)}>{s.lesson.data.title}</a></h3>
+            <div class="list">
+              {s.vids.map((v) => <VideoCard video={v} />)}
+            </div>
+          </div>
+        ))}
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .lead { color: var(--ink-2); max-width: 60ch; font-size: 1.1rem; }
+  .jump { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+  .level { scroll-margin-top: 80px; }
+  .topic { margin-top: 1.5rem; }
+  .topic h3 { margin: 0 0 0.75rem; }
+  .topic h3 a { color: var(--ink); text-decoration-color: var(--accent); }
+  .list { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+</style>

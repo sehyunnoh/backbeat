@@ -1,0 +1,252 @@
+---
+import TempoControl from './TempoControl.astro';
+import { parsePattern, type LaneId } from '../lib/pattern';
+
+interface Props {
+  title?: string;
+  /** Short line under the title. */
+  description?: string;
+  bpm?: number;
+  /** Beats per bar (default 4). */
+  beats?: number;
+  /** Lane strings, e.g. hh="x-x-x-x-x-x-x-x-". Bars separated by a space. */
+  crash?: string;
+  ride?: string;
+  hh?: string;
+  tom1?: string;
+  tom2?: string;
+  tom3?: string;
+  sn?: string;
+  bd?: string;
+  /** Hand pattern, e.g. "RLRLRLRL". */
+  sticking?: string;
+  lessonId?: string;
+  minBpm?: number;
+  maxBpm?: number;
+}
+
+const { title, description, bpm = 70, beats = 4, sticking, lessonId, minBpm = 40, maxBpm = 160, ...rest } = Astro.props;
+const laneStrings: Partial<Record<LaneId, string>> = {};
+for (const id of ['crash', 'ride', 'hh', 'tom1', 'tom2', 'tom3', 'sn', 'bd'] as LaneId[]) {
+  const v = (rest as Record<string, string | undefined>)[id];
+  if (v !== undefined) laneStrings[id] = v;
+}
+
+const p = parsePattern(laneStrings, sticking, beats);
+const cell = p.stepsPerBar <= 8 ? 40 : 28;
+const config = {
+  bpm,
+  beats,
+  stepsPerBar: p.stepsPerBar,
+  stepsPerBeat: p.stepsPerBeat,
+  events: p.events,
+};
+---
+
+<section class="pattern card" data-pattern data-lesson={lessonId} data-config={JSON.stringify(config)} aria-label={title ?? 'Practice pattern'}>
+  {(title || description) && (
+    <header>
+      {title && <h3>{title}</h3>}
+      {description && <p class="desc">{description}</p>}
+    </header>
+  )}
+
+  <div class="scroll" tabindex="0" role="group" aria-label="Pattern chart (scrolls sideways on small screens)">
+    {Array.from({ length: p.bars }, (_, bar) => (
+      <div class="bar" style={`--n:${p.stepsPerBar};--cell:${cell}px`}>
+        <div class="row counts">
+          <span class="lbl">{p.bars > 1 ? `Bar ${bar + 1}` : 'Count'}</span>
+          {p.counts.map((c, i) => (
+            <span class:list={['c', { beat: i % p.stepsPerBeat === 0, first: i === 0 }]} data-step={bar * p.stepsPerBar + i}>
+              {c}
+            </span>
+          ))}
+        </div>
+        {p.lanes.map((lane) => (
+          <div class="row lane" data-lane={lane.id}>
+            <button type="button" class="lbl lane-btn" data-mute={lane.id} aria-pressed="false" title="Tap to mute or unmute this row">
+              {lane.label}
+            </button>
+            {lane.bars[bar].map((c, i) => (
+              <span class:list={['c', { beat: i % p.stepsPerBeat === 0 }]} data-step={bar * p.stepsPerBar + i}>
+                {c.kind === 'rest' ? (
+                  <i class="rest" />
+                ) : (
+                  <i class:list={['note', lane.id, { x: lane.cymbal && c.kind !== 'open', open: c.kind === 'open', acc: c.accent }]} />
+                )}
+              </span>
+            ))}
+          </div>
+        ))}
+        {p.sticking && (
+          <div class="row stick">
+            <span class="lbl">Hands</span>
+            {p.sticking[bar].map((s, i) => (
+              <span class:list={['c', 'hand', s === 'R' ? 'r' : s === 'L' ? 'l' : 'none', { beat: i % p.stepsPerBeat === 0 }]} data-step={bar * p.stepsPerBar + i}>
+                {s === '-' ? '' : s}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <div class="controls">
+    <button type="button" class="btn play" data-toggle aria-pressed="false">
+      <span data-label>Play</span>
+    </button>
+    <div class="tempo-wrap">
+      <TempoControl value={bpm} min={minBpm} max={maxBpm} compact label="Pattern tempo" />
+    </div>
+  </div>
+  <label class="click-opt"><input type="checkbox" data-click /> Add a click on every beat</label>
+  <p class="legend">
+    × = cymbal / hi-hat · ○ = open hi-hat · ● = drum · bigger = accent (play it louder) · tap a row name to mute it.
+  </p>
+</section>
+
+<style>
+  .pattern { padding: 1rem; display: grid; gap: 0.9rem; }
+  header h3 { margin: 0; font-size: 1.15rem; }
+  .desc { margin: 0.2rem 0 0; color: var(--ink-2); font-size: 0.95rem; }
+
+  .scroll { overflow-x: auto; border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .bar { --lbl: 78px; min-width: calc(var(--lbl) + var(--n) * var(--cell)); }
+  .bar + .bar { border-top: 2px dashed var(--line); }
+  .row { display: grid; grid-template-columns: var(--lbl) repeat(var(--n), minmax(var(--cell), 1fr)); align-items: center; }
+  .lbl {
+    position: sticky; left: 0; z-index: 2;
+    background: var(--surface);
+    font: 700 0.78rem var(--font-display);
+    padding: 0 0.5rem;
+    min-height: 34px;
+    display: flex; align-items: center;
+    color: var(--ink-2);
+    border: 0; text-align: left;
+    border-right: 1.5px solid var(--line);
+  }
+  .lane-btn { cursor: pointer; color: var(--ink); min-height: 40px; }
+  .lane-btn[aria-pressed='true'] { color: var(--ink-2); text-decoration: line-through; opacity: 0.55; }
+  .c { display: grid; place-items: center; min-height: 34px; position: relative; font: 600 0.85rem var(--font-display); color: var(--ink-2); }
+  .lane .c { min-height: 40px; border-bottom: 1px solid var(--line); }
+  .c.beat { border-left: 1.5px solid var(--line); }
+  .counts .c { color: var(--ink-2); }
+  .counts .c.beat { color: var(--ink); font-weight: 800; }
+  .c.is-now { background: var(--accent-soft); }
+  .lane[data-muted] .c { opacity: 0.35; }
+
+  .rest { width: 4px; height: 4px; border-radius: 50%; background: var(--line); display: block; }
+  .note { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); transition: transform 0.05s; }
+  .note.bd { background: var(--kick); }
+  .note.sn { background: var(--snare); }
+  .note.acc { transform: scale(1.35); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px currentColor; }
+  .note.x { background: transparent; border-radius: 0; color: var(--hat); }
+  .note.x::before, .note.x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 18px; height: 3px; background: currentColor; border-radius: 2px; }
+  .note.x::before { transform: translate(-50%, -50%) rotate(45deg); }
+  .note.x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+  .note.open { background: transparent; border: 3px solid var(--hat); width: 18px; height: 18px; }
+  .is-now .note { transform: scale(1.3); }
+  .is-now .note.acc { transform: scale(1.6); }
+
+  .hand { font-weight: 800; font-size: 1rem; }
+  .hand.r { color: var(--snare); }
+  .hand.l { color: var(--kick); }
+
+  .controls { display: grid; gap: 0.8rem; grid-template-columns: 1fr; align-items: center; }
+  .play { min-height: 56px; font-size: 1.15rem; }
+  .play[aria-pressed='true'] { background: var(--ink); color: var(--bg); }
+  .click-opt { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; font-size: 0.95rem; }
+  .click-opt input { width: 22px; height: 22px; accent-color: var(--accent); }
+  .legend { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+  @media (min-width: 640px) {
+    .controls { grid-template-columns: 200px 1fr; gap: 1.5rem; }
+  }
+</style>
+
+<script>
+  import { StepScheduler, announcePlaying, getCtx, onOtherPlaying, playVoice, type Voice } from '../scripts/audio';
+  import { bindTempo } from '../scripts/tempo';
+  import { getProgress, setLessonBpm } from '../scripts/progress';
+
+  interface Config {
+    bpm: number;
+    beats: number;
+    stepsPerBar: number;
+    stepsPerBeat: number;
+    events: { lane: string; voice: Voice; accent: boolean }[][];
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-pattern]')) {
+    const cfg = JSON.parse(root.dataset.config ?? '{}') as Config;
+    const lessonId = root.dataset.lesson;
+    const total = cfg.events.length;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
+    const label = toggle.querySelector<HTMLElement>('[data-label]')!;
+    const clickBox = root.querySelector<HTMLInputElement>('[data-click]')!;
+    const muted = new Set<string>();
+
+    const columns: HTMLElement[][] = Array.from({ length: total }, () => []);
+    for (const el of root.querySelectorAll<HTMLElement>('[data-step]')) columns[Number(el.dataset.step)].push(el);
+
+    const tempo = bindTempo(root.querySelector<HTMLElement>('[data-tempo]')!, (bpm) => {
+      if (lessonId) setLessonBpm(lessonId, bpm);
+    });
+    const saved = lessonId ? getProgress().lessons[lessonId]?.bpm : undefined;
+    if (saved) tempo.set(Math.round(saved));
+
+    let current = -1;
+    const clearNow = () => {
+      if (current >= 0) for (const el of columns[current]) el.classList.remove('is-now');
+      current = -1;
+    };
+
+    const scheduler = new StepScheduler({
+      stepDuration: () => 60 / tempo.get() / cfg.stepsPerBeat,
+      onStep: (step, time) => {
+        const idx = step % total;
+        if (clickBox.checked && idx % cfg.stepsPerBeat === 0) {
+          playVoice(idx % cfg.stepsPerBar === 0 ? 'clickAccent' : 'click', time, 0.6);
+        }
+        for (const ev of cfg.events[idx]) {
+          if (muted.has(ev.lane)) continue;
+          playVoice(ev.voice, time, ev.accent ? 1 : 0.65);
+        }
+      },
+      onVisual: (step) => {
+        clearNow();
+        current = step % total;
+        for (const el of columns[current]) el.classList.add('is-now');
+      },
+    });
+
+    const stop = () => {
+      scheduler.stop();
+      clearNow();
+      toggle.setAttribute('aria-pressed', 'false');
+      label.textContent = 'Play';
+    };
+    const start = () => {
+      announcePlaying(root);
+      getCtx();
+      scheduler.start();
+      toggle.setAttribute('aria-pressed', 'true');
+      label.textContent = 'Stop';
+    };
+
+    toggle.addEventListener('click', () => (scheduler.running ? stop() : start()));
+    onOtherPlaying(root, stop);
+    document.addEventListener('visibilitychange', () => document.hidden && stop());
+
+    for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-mute]')) {
+      btn.addEventListener('click', () => {
+        const lane = btn.dataset.mute!;
+        const nowMuted = !muted.has(lane);
+        if (nowMuted) muted.add(lane);
+        else muted.delete(lane);
+        btn.setAttribute('aria-pressed', String(nowMuted));
+        for (const row of root.querySelectorAll<HTMLElement>(`.lane[data-lane="${lane}"]`)) row.toggleAttribute('data-muted', nowMuted);
+      });
+    }
+  }
+</script>

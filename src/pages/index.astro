@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import Meter from '../components/Meter.astro';
+import { levels } from '../data/levels';
+import { getLessons, lessonHref } from '../lib/lessons';
+import { url } from '../lib/url';
+
+const lessons = await getLessons();
+const order = JSON.stringify(lessons.map((l) => ({ id: l.id, href: lessonHref(l), title: l.data.title })));
+---
+
+<Base section="home">
+  <div class="wrap">
+    <section class="hero">
+      <div class="copy">
+        <p class="eyebrow">For total beginners</p>
+        <h1>Learn drums from zero.</h1>
+        <p class="lead">
+          A calm, step-by-step course: the words, the grip, the wrist snap, then your first rudiments.
+          Built around the Roland TD-1DMK, a few minutes at a time.
+        </p>
+        <div class="cta">
+          <a class="btn" href={url('learn/')} data-continue={order}><span data-continue-label>Start: {lessons[0].data.title}</span></a>
+          <a class="btn ghost" href={url('metronome/')}>Open the metronome</a>
+        </div>
+      </div>
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 320 170">
+          <rect x="2" y="2" width="316" height="166" rx="18" fill="var(--surface)" stroke="var(--ink)" stroke-width="3" />
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <g>
+              <line x1={36 + i * 35} y1="22" x2={36 + i * 35} y2="150" stroke="var(--line)" stroke-width="2" stroke-dasharray={i % 2 ? '3 5' : '0'} />
+              <g class="hat" style={`animation-delay:${i * 0.15}s`} transform={`translate(${36 + i * 35} 45)`}>
+                <path d="M-8 -8L8 8M8 -8L-8 8" stroke="var(--hat)" stroke-width="4" stroke-linecap="round" />
+              </g>
+            </g>
+          ))}
+          {[2, 6].map((i) => <circle cx={36 + i * 35} cy="92" r="11" fill="var(--snare)" />)}
+          {[0, 3, 4].map((i) => <circle cx={36 + i * 35} cy="130" r="11" fill="var(--kick)" />)}
+        </svg>
+      </div>
+    </section>
+
+    <section class="levels" aria-labelledby="levels-h">
+      <h2 id="levels-h">The path</h2>
+      <div class="grid cols-3">
+        {levels.map((lv) => {
+          const ls = lessons.filter((l) => l.data.level === lv.id);
+          return (
+            <a class="card level" href={`${url('learn/')}#level-${lv.id}`}>
+              <span class="n">{lv.id}</span>
+              <h3>{lv.title}</h3>
+              <p>{lv.tagline}</p>
+              <Meter ids={ls.map((l) => l.id)} />
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="tools">
+      <div class="card">
+        <h3>Keep time</h3>
+        <p>Every exercise gets better with a click. A big, simple metronome from 40 to 200 BPM, one tap away.</p>
+        <a class="btn small" href={url('metronome/')}>Metronome</a>
+      </div>
+      <div class="card">
+        <h3>Watch and learn</h3>
+        <p>Hand-picked beginner videos for every lesson, collected in one place for when you have a free few minutes.</p>
+        <a class="btn small" href={url('videos/')}>All videos</a>
+      </div>
+      <div class="card">
+        <h3>Speak drummer</h3>
+        <p>BPM, backbeat, paradiddle? A short glossary in plain English.</p>
+        <a class="btn small" href={url('glossary/')}>Glossary</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .hero { display: grid; gap: 2rem; padding-block: 1.5rem 2.5rem; align-items: center; }
+  .lead { font-size: 1.15rem; color: var(--ink-2); max-width: 52ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .art svg { width: 100%; height: auto; display: block; max-width: 440px; margin-inline: auto; transform: rotate(-2deg); filter: drop-shadow(6px 8px 0 rgba(35, 29, 22, 0.12)); }
+  .hat { animation: tick 1.2s steps(1) infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes tick { 0% { opacity: 1; } 15% { opacity: 0.35; } 30% { opacity: 1; } }
+  @media (min-width: 860px) { .hero { grid-template-columns: 1.15fr 1fr; } }
+
+  .levels h2 { margin-top: 0.5rem; }
+  .level { display: grid; gap: 0.6rem; text-decoration: none; color: var(--ink); position: relative; transition: transform 0.12s; }
+  .level:hover { transform: translateY(-2px); color: var(--ink); border-color: var(--ink); }
+  .level h3 { margin: 0; }
+  .level p { margin: 0; color: var(--ink-2); }
+  .n { position: absolute; right: 1rem; top: 0.4rem; font: 800 3.5rem var(--font-display); color: var(--accent-soft); -webkit-text-stroke: 2px var(--accent); line-height: 1; }
+  .tools { display: grid; gap: 1rem; margin-top: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+  .tools h3 { margin-top: 0; }
+  .tools p { color: var(--ink-2); }
+</style>

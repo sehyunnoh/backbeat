@@ -1,0 +1,67 @@
+---
+// Three simplified steps for matched grip. Hands are abstracted into capsules on purpose:
+// the videos on the lesson page show the real thing.
+const steps = [
+  {
+    title: '1. Find the balance point',
+    text: 'Rest the stick on one finger and slide it until it balances. That is close to the fulcrum, roughly a third of the way up from the thick end (it varies a little by stick).',
+  },
+  {
+    title: '2. Pinch at the fulcrum',
+    text: 'Your thumb and the side of your index finger gently pinch the stick right there. Firm enough that it will not drop, loose enough that it can swing.',
+  },
+  {
+    title: '3. Wrap the rest loosely',
+    text: 'Middle, ring and little finger rest around the stick. They guide it. They do not squeeze it.',
+  },
+];
+const stick = '10,65 210,67.5 210,72.5 10,75';
+---
+
+<div class="grip figure">
+  <figure class="step">
+    <svg viewBox="0 0 220 150" role="img" aria-label="A drumstick with a marker about one third from the thick end showing the balance point.">
+      <polygon points={stick} fill="#e6c48a" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" />
+      <path d="M76 82 l-9 16 h18 z" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" />
+      <path d="M10 42 V34 H76 V42" fill="none" stroke="var(--ink-2)" stroke-width="2" />
+      <text x="43" y="26" text-anchor="middle" class="t">about ⅓</text>
+      <text x="76" y="120" text-anchor="middle" class="t">balance point</text>
+      <text x="10" y="92" class="s">thick end</text>
+      <text x="210" y="92" text-anchor="end" class="s">tip</text>
+    </svg>
+    <figcaption><strong>{steps[0].title}</strong><span>{steps[0].text}</span></figcaption>
+  </figure>
+
+  <figure class="step">
+    <svg viewBox="0 0 220 150" role="img" aria-label="Thumb from above and index finger from below pinching the stick at the balance point.">
+      <polygon points={stick} fill="#e6c48a" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" />
+      <rect x="62" y="14" width="26" height="48" rx="13" fill="#f3d3b8" stroke="var(--ink)" stroke-width="2.5" />
+      <rect x="64" y="80" width="26" height="52" rx="13" fill="#f3d3b8" stroke="var(--ink)" stroke-width="2.5" />
+      <circle cx="76" cy="70" r="15" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-dasharray="5 4" />
+      <text x="108" y="40" class="t">thumb</text>
+      <text x="108" y="112" class="t">index finger</text>
+    </svg>
+    <figcaption><strong>{steps[1].title}</strong><span>{steps[1].text}</span></figcaption>
+  </figure>
+
+  <figure class="step">
+    <svg viewBox="0 0 220 150" role="img" aria-label="The last three fingers curled loosely around the stick behind the pinch point.">
+      <polygon points={stick} fill="#e6c48a" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" />
+      <circle cx="76" cy="70" r="15" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-dasharray="5 4" />
+      {[22, 38, 54].map((x) => <rect x={x - 8} y="40" width="16" height="60" rx="8" fill="#f3d3b8" stroke="var(--ink)" stroke-width="2.5" />)}
+      <text x="38" y="124" text-anchor="middle" class="t">fingers rest</text>
+      <text x="38" y="140" text-anchor="middle" class="t">loosely</text>
+    </svg>
+    <figcaption><strong>{steps[2].title}</strong><span>{steps[2].text}</span></figcaption>
+  </figure>
+</div>
+
+<style>
+  .grip { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); margin: 1.6rem 0; }
+  .step { margin: 0; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0.75rem; display: grid; gap: 0.6rem; align-content: start; }
+  svg { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 10px; }
+  .t { font: 700 12px var(--font-display); fill: var(--ink); }
+  .s { font: 600 10px var(--font-display); fill: var(--ink-2); }
+  figcaption { display: grid; gap: 0.25rem; font-size: 0.93rem; color: var(--ink-2); margin: 0; }
+  figcaption strong { color: var(--ink); font-family: var(--font-display); font-size: 1rem; }
+</style>

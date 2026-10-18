@@ -1,0 +1,82 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Check from '../../components/Check.astro';
+import VideoList from '../../components/VideoList.astro';
+import { getLessons, lessonHref, lessonNumber } from '../../lib/lessons';
+import { levels } from '../../data/levels';
+import { videosForLesson } from '../../lib/videos';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const lessons = await getLessons();
+  return lessons.map((lesson, i) => ({
+    params: { id: lesson.id },
+    props: { lesson, prev: lessons[i - 1], next: lessons[i + 1], all: lessons },
+  }));
+}
+
+const { lesson, prev, next, all } = Astro.props;
+const { Content } = await render(lesson);
+const level = levels.find((l) => l.id === lesson.data.level)!;
+const videos = videosForLesson(lesson.id);
+---
+
+<Base title={lesson.data.title} section="learn" description={lesson.data.summary}>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href={url('learn/')}>Lessons</a> <span aria-hidden="true">/</span>
+      <a href={`${url('learn/')}#level-${level.id}`}>Level {level.id}: {level.title}</a>
+    </nav>
+
+    <article>
+      <header class="head">
+        <p class="eyebrow">Lesson {lessonNumber(lesson, all)} · {lesson.data.minutes} min</p>
+        <h1>{lesson.data.title}</h1>
+        <p class="lead">{lesson.data.summary}</p>
+        <div class="goal">
+          <Check id={lesson.id} />
+          <p><strong>You are done when:</strong> {lesson.data.goal}</p>
+        </div>
+      </header>
+
+      <div class="lesson-body">
+        <Content />
+      </div>
+
+      <VideoList
+        videos={videos}
+        title="Watch"
+        intro="Optional, but seeing it helps. Videos are by other teachers and open from YouTube."
+      />
+
+      <section class="finish">
+        <button type="button" class="btn" data-complete-btn={lesson.id} aria-pressed="false">
+          <span data-label>Mark lesson as done</span>
+        </button>
+      </section>
+
+      <nav class="pager" aria-label="Lesson navigation">
+        {prev ? <a class="card prev" href={lessonHref(prev)}><small>← Previous</small><strong>{prev.data.title}</strong></a> : <span />}
+        {next ? <a class="card next" href={lessonHref(next)}><small>Next →</small><strong>{next.data.title}</strong></a> : <a class="card next" href={url('progress/')}><small>That is all for now</small><strong>See your progress →</strong></a>}
+      </nav>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .crumbs { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.9rem; color: var(--ink-2); margin-bottom: 1rem; }
+  .crumbs a { color: var(--ink-2); }
+  .head { max-width: 70ch; }
+  .lead { font-size: 1.15rem; color: var(--ink-2); }
+  .goal { display: flex; gap: 0.8rem; align-items: flex-start; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0.8rem 1rem; margin-top: 1.2rem; }
+  .goal p { margin: 0; }
+  .finish { margin-top: 2.5rem; }
+  .pager { display: grid; gap: 0.75rem; grid-template-columns: 1fr; margin-top: 2rem; }
+  .pager a { text-decoration: none; color: var(--ink); display: grid; gap: 0.15rem; }
+  .pager a:hover { border-color: var(--ink); }
+  .pager small { color: var(--ink-2); font-weight: 600; }
+  .pager strong { font-family: var(--font-display); }
+  .next { text-align: right; }
+  @media (min-width: 640px) { .pager { grid-template-columns: 1fr 1fr; } }
+</style>

@@ -1,0 +1,620 @@
+{
+ "generatedAt": "2026-10-18",
+ "videos": [
+  {
+   "id": "et9hU7QMDYU",
+   "lessons": [
+    "kit-parts",
+    "beginner-roadmap"
+   ],
+   "title": "How To Play Drums - Your Very First Drum Lesson",
+   "channel": "Drumeo",
+   "durationMin": 7,
+   "summary": "A short first lesson from Drumeo that names the pieces of the kit and shows the very first things to play.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "yokJdlN7LZc",
+   "lessons": [
+    "kit-parts"
+   ],
+   "title": "Beginner Drumset Basics -  Parts of the Drum Set",
+   "channel": "Rockdale Music",
+   "durationMin": 5.5,
+   "summary": "Walks through each part of the drum set by name, a clear reference for snare, toms, kick and cymbals.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "G8sU-HHDk8s",
+   "lessons": [
+    "kit-parts"
+   ],
+   "title": "The Different Parts of a Drum Kit... In 2 Minutes !!!",
+   "channel": "drumiBus",
+   "durationMin": 2,
+   "summary": "A two-minute quick tour of the different parts of a drum kit, good as a fast refresher.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "xcTNI321itw",
+   "lessons": [
+    "module-basics"
+   ],
+   "title": "Setting Up the TD-1K and TD-1KV V-Drums",
+   "channel": "RolandChannel",
+   "durationMin": 6,
+   "summary": "Official Roland video on setting up the TD-1K/TD-1KV kit and module, closely related to the TD-1DMK.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "AuW6MTTtB9w",
+   "lessons": [
+    "module-basics"
+   ],
+   "title": "Roland V-Drums TD-1 Song - How to turn ON/OFF the metronome 如何开关TD-1电子鼓的节拍器",
+   "channel": "RAP Distribution Sdn Bhd",
+   "durationMin": 0.8,
+   "summary": "Short demo of turning the TD-1 module metronome on and off.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "kdLaXDNVgBk",
+   "lessons": [
+    "module-basics"
+   ],
+   "title": "Roland V-Drums TD-1 Tempo - How to change the tempo 如何选择TD-1电子鼓的拍子",
+   "channel": "RAP Distribution Sdn Bhd",
+   "durationMin": 1.5,
+   "summary": "Short demo of changing the tempo on a Roland TD-1 module.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "7fvkDL-jRNU",
+   "lessons": [
+    "setup-posture"
+   ],
+   "title": "How To Have Good Posture On The Drums",
+   "channel": "Drumeo",
+   "durationMin": 3.5,
+   "summary": "Drumeo's quick guide to sitting with good posture behind the kit.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "G29gqojenTE",
+   "lessons": [
+    "setup-posture"
+   ],
+   "title": "Find Your Perfect Drum Throne Height With These 3 Tactics",
+   "channel": "Stephen Clark",
+   "durationMin": 9,
+   "summary": "Three ways to find a comfortable drum throne height for your body.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "b2bF0T51f5c",
+   "lessons": [
+    "drum-vocab"
+   ],
+   "title": "Drum Terminology For Dummies | Drum Related Phrases",
+   "channel": "That Swedish Drummer",
+   "durationMin": 10.5,
+   "summary": "Explains common drum terms and phrases in plain language for newcomers.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "-xJ4BRYoSXA",
+   "lessons": [
+    "drum-vocab"
+   ],
+   "title": "Understanding BPM   Music Theory For Beginners",
+   "channel": "Tomas Michaud",
+   "durationMin": 4.5,
+   "summary": "Explains what BPM means in a beginner-friendly music theory video.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "deyxxd_Nu9c",
+   "lessons": [
+    "counting-beats"
+   ],
+   "title": "Counting On The Drums, 101!",
+   "channel": "Mike Barnes Drums",
+   "durationMin": 11.5,
+   "summary": "Teaches how to count rhythms out loud while playing the drums.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "ovh8gt86Bes",
+   "lessons": [
+    "counting-beats"
+   ],
+   "title": "How to Start Reading Drum Set Music - Basic Notation Tutorial",
+   "channel": "Drew Wooton",
+   "durationMin": 10,
+   "summary": "A basic tutorial on starting to read drum set notation.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "hpXtqLDhE_g",
+   "lessons": [
+    "counting-beats",
+    "groove-routine"
+   ],
+   "title": "How to Play Along With a Metronome (Beginner Drum Lesson)",
+   "channel": "Drum With Alex",
+   "durationMin": 7,
+   "summary": "A beginner lesson on playing along with a metronome.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "JWJGc5Z7_LU",
+   "lessons": [
+    "matched-grip"
+   ],
+   "title": "How To Hold Your Drumsticks (Matched Grip) - Drum Lesson",
+   "channel": "Drumeo",
+   "durationMin": 7,
+   "summary": "Drumeo's lesson on how to hold your sticks with matched grip.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "6nq-JeTUIEY",
+   "lessons": [
+    "matched-grip"
+   ],
+   "title": "How To Hold Drumsticks",
+   "channel": "Drumeo",
+   "durationMin": 8.5,
+   "summary": "Another Drumeo lesson on holding drumsticks, useful to compare with the first.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "53jDwKQbm1U",
+   "lessons": [
+    "stick-rebound"
+   ],
+   "title": "3 Tips For Better Stick Rebound - Drum Lesson (Stephen Taylor)",
+   "channel": "Stephen Taylor",
+   "durationMin": 10,
+   "summary": "Stephen Taylor gives three tips for getting better stick rebound.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "i6FhTER_KYA",
+   "lessons": [
+    "stick-rebound"
+   ],
+   "title": "Developing Rebound Strokes - Drum Technique Lesson 1",
+   "channel": "Rhythm Notes",
+   "durationMin": 7,
+   "summary": "Introductory drum technique lesson focused on developing rebound strokes.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "IzDgDWLQ3I8",
+   "lessons": [
+    "wrist-snap"
+   ],
+   "title": "Wrist Development -  Rebound Strokes",
+   "channel": "Drumroll Drum Lessons Vancouver",
+   "durationMin": 5,
+   "summary": "A short lesson on wrist development using rebound strokes.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "xYTfbPD4ILE",
+   "lessons": [
+    "wrist-snap"
+   ],
+   "title": "The Wrist Stroke",
+   "channel": "Tom Nelson",
+   "durationMin": 1.8,
+   "summary": "A very short demonstration of the wrist stroke.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "dh8NHjsDHv4",
+   "lessons": [
+    "stroke-types"
+   ],
+   "title": "Full stroke, Down stroke, Tap, Up stroke",
+   "channel": "Drum Lessons with Joe The Drummer",
+   "durationMin": 6.5,
+   "summary": "Demonstrates full, down, tap and up strokes.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "7j7IXgXPz7c",
+   "lessons": [
+    "stroke-types"
+   ],
+   "title": "Full Stroke, Down Stroke, Up Stroke and Tap",
+   "channel": "More Drums Percussion Studio",
+   "durationMin": 5,
+   "summary": "Another explanation of full, down, up strokes and taps.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "BnrYRliu1bI",
+   "lessons": [
+    "single-hand-pad"
+   ],
+   "title": "Drumming Warm-Up (Beginner) - Drum Lesson",
+   "channel": "Drumeo",
+   "durationMin": 7.5,
+   "summary": "A beginner drumming warm-up from Drumeo that works well on a practice pad.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "1Egtf2Ae37M",
+   "lessons": [
+    "single-hand-pad"
+   ],
+   "title": "Beginner Practice Pad Routine (Play in Time & Feel More Relaxed)",
+   "channel": "Drum With Alex",
+   "durationMin": 12,
+   "summary": "A beginner practice pad routine aimed at playing in time and staying relaxed.",
+   "level": 1,
+   "start": null
+  },
+  {
+   "id": "0_wgVPMRaiM",
+   "lessons": [
+    "single-stroke-roll"
+   ],
+   "title": "How To Play A Single Stroke Roll - Drum Rudiment Lesson",
+   "channel": "Drumeo",
+   "durationMin": 1.2,
+   "summary": "A quick Drumeo rudiment lesson on the single stroke roll.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "gZLYxM5S5EY",
+   "lessons": [
+    "single-stroke-roll"
+   ],
+   "title": "Learn Single Strokes – The Most IMPORTANT Drum Rudiment! 🥁😱",
+   "channel": "Love To Learn Drums",
+   "durationMin": 3.2,
+   "summary": "Short lesson on single strokes, framed as an essential rudiment.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "nV7YpFJRuKU",
+   "lessons": [
+    "double-stroke-roll"
+   ],
+   "title": "How To Play Double Stroke Roll for Beginners",
+   "channel": "Drum Ape",
+   "durationMin": 8.5,
+   "summary": "A beginner lesson on how to play the double stroke roll.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "IP_AzJIeYl4",
+   "lessons": [
+    "double-stroke-roll"
+   ],
+   "title": "How To Play A Double Stroke Roll - Drum Rudiment Lesson",
+   "channel": "Drumeo",
+   "durationMin": 1.2,
+   "summary": "A quick Drumeo rudiment lesson on the double stroke roll.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "h0OoVP6VgBE",
+   "lessons": [
+    "paradiddle"
+   ],
+   "title": "How To Play A Paradiddle - Drum Rudiment Lesson",
+   "channel": "Drumeo",
+   "durationMin": 1.3,
+   "summary": "A quick Drumeo rudiment lesson on the paradiddle.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "3lHOIZYs344",
+   "lessons": [
+    "paradiddle"
+   ],
+   "title": "How to Play the Paradiddle - EASY Drum Lesson - Beginner Drum Rudiments",
+   "channel": "Philip Ellis",
+   "durationMin": 4,
+   "summary": "An easy beginner lesson on playing the paradiddle.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "clap3PLe82c",
+   "lessons": [
+    "weak-hand"
+   ],
+   "title": "Building Your Weaker Hand - Drum Lesson (DRUMEO)",
+   "channel": "Drumeo",
+   "durationMin": 6.5,
+   "summary": "A Drumeo lesson on building up your weaker hand.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "7XYt4EDSIC4",
+   "lessons": [
+    "weak-hand"
+   ],
+   "title": "Unlocking Your Weak Hand: The Essential Drum Lesson",
+   "channel": "Mike Johnston",
+   "durationMin": 5,
+   "summary": "Mike Johnston's lesson on unlocking your weak hand.",
+   "level": 2,
+   "start": null
+  },
+  {
+   "id": "6BmPZifNZos",
+   "lessons": [
+    "beginner-roadmap"
+   ],
+   "title": "Drums Lesson 1 - Absolute Beginner? Start Here! [Free 10 Day Starter Course]",
+   "channel": "Stephen Taylor",
+   "durationMin": 12.5,
+   "summary": "Stephen Taylor's first lesson of a free 10-day starter course for absolute beginners.",
+   "level": 0,
+   "start": null
+  },
+  {
+   "id": "kyWcuQW-tII",
+   "lessons": [
+    "kick-snare-basics"
+   ],
+   "title": "This Should Be Everyone's First Drum Lesson",
+   "channel": "Stephen Taylor",
+   "durationMin": 4,
+   "summary": "A short first-lesson video aimed at total beginners that gets a basic drum beat going.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "hMMHB95RXyk",
+   "lessons": [
+    "kick-snare-basics"
+   ],
+   "title": "10-Minute Beginner E-Kit Lesson (Learn To Play The Drums)",
+   "channel": "Drumeo",
+   "durationMin": 9.5,
+   "summary": "A beginner lesson made for electronic kits, a good match for the TD-1DMK when building your first beat.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "zRLvInIpaVU",
+   "lessons": [
+    "basic-8-beat"
+   ],
+   "title": "Eighth-Note Rock Beat - Beginner Drum Lesson",
+   "channel": "Sacha K",
+   "durationMin": 4.5,
+   "summary": "A compact walkthrough of the eighth-note rock beat for beginners.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "7xffI6cskak",
+   "lessons": [
+    "basic-8-beat"
+   ],
+   "title": "Beginner Drum Lesson - How to Play an Eighth Note Rock Beat",
+   "channel": "Jared Chontos",
+   "durationMin": 9,
+   "summary": "A slower, more detailed beginner lesson on the eighth-note rock beat.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "5ULrpBExHmM",
+   "lessons": [
+    "kick-variations"
+   ],
+   "title": "6 kick patterns every BEGINNER should know",
+   "channel": "Stephen Clark",
+   "durationMin": 17,
+   "summary": "Shows six kick drum patterns beginners can add under a rock beat.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "ycyfFeGu33w",
+   "lessons": [
+    "kick-variations"
+   ],
+   "title": "3 Essential KICK DRUM Exercises - Beginner Drum Lesson #5",
+   "channel": "Alejandro Sifuentes",
+   "durationMin": 8.5,
+   "summary": "Three kick drum exercises for beginners to build control and try new kick placements.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "A3EcYcG827I",
+   "lessons": [
+    "open-hihat"
+   ],
+   "title": "Beginner Opening-Closing Hi-Hats",
+   "channel": "Drumeo",
+   "durationMin": 7,
+   "summary": "A beginner lesson on opening and closing the hi-hat with the pedal while playing.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "pDcXPSdgGFE",
+   "lessons": [
+    "open-hihat"
+   ],
+   "title": "Open & Closed Hi-Hat Technique",
+   "channel": "SteveHatfield.com",
+   "durationMin": 4.5,
+   "summary": "A short look at open and closed hi-hat technique.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "qc7wPNHCFnU",
+   "lessons": [
+    "groove-routine"
+   ],
+   "title": "Playing Drums To A Metronome | DRUM LESSON",
+   "channel": "Drum Beats Online",
+   "durationMin": 5.5,
+   "summary": "Explains how to play drums to a metronome, the core habit for practising a groove steadily.",
+   "level": 3,
+   "start": null
+  },
+  {
+   "id": "e6_YAcsQDuk",
+   "lessons": [
+    "crash-start"
+   ],
+   "title": "How to Crash Like a Pro! | Beginner Drum Lesson 7 | Adding Crash to Grooves",
+   "channel": "Become A Drummer",
+   "durationMin": 20.5,
+   "summary": "A beginner lesson on hitting the crash and adding it to grooves.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "QuknGHBrdFU",
+   "lessons": [
+    "crash-start"
+   ],
+   "title": "Grooves with Crashes  - Daily Drum Lesson",
+   "channel": "Daily Drum Lesson",
+   "durationMin": 5,
+   "summary": "A short lesson with grooves that include crash cymbal hits.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "-KTsK29SDGI",
+   "lessons": [
+    "snare-fill"
+   ],
+   "title": "YOUR FIRST DRUM FILLS - Beginner Lesson #2",
+   "channel": "Alejandro Sifuentes",
+   "durationMin": 14,
+   "summary": "A beginner lesson introducing your first drum fills.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "8XCHBwCQ3Oo",
+   "lessons": [
+    "snare-fill",
+    "tom-fill"
+   ],
+   "title": "7 Rock Drum Fills for Beginners",
+   "channel": "Drumeo",
+   "durationMin": 10,
+   "summary": "Seven rock drum fills for beginners, with simple options to try after a groove.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "vgVgEhWOIb4",
+   "lessons": [
+    "tom-fill"
+   ],
+   "title": "3 RIDICULOUSLY Simple Drum Fills | DRUM LESSON - That Swedish Drummer",
+   "channel": "That Swedish Drummer",
+   "durationMin": 7.5,
+   "summary": "Three very simple drum fills that are easy for a beginner to learn.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "hM1xB6gXMpA",
+   "lessons": [
+    "tom-fill"
+   ],
+   "title": "Drum Fills For Beginners | Easy Beginner Drum Fill | DRUM LESSON",
+   "channel": "Stephen Taylor",
+   "durationMin": 14,
+   "summary": "An easy beginner drum fill lesson.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "Cik43bb2ZQo",
+   "lessons": [
+    "fill-in-out"
+   ],
+   "title": "Drums For Beginners: How To Play Cool, Simple Drum Fills And Stay In Time!",
+   "channel": "Mike Barnes Drums",
+   "durationMin": 19.5,
+   "summary": "Teaches simple fills for beginners with a focus on staying in time.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "qOEkfz5JfKU",
+   "lessons": [
+    "fill-in-out"
+   ],
+   "title": "Creating Short, Cool Drum Fills On Beat 4! - Drums For Beginners",
+   "channel": "Mike Barnes Drums",
+   "durationMin": 18.5,
+   "summary": "Shows short fills placed on beat 4 so they lead back into the groove.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "AazflasStoM",
+   "lessons": [
+    "play-along"
+   ],
+   "title": "Easiest Song On Drums | First Drum Lesson | \"Sugar\" Drum Lesson",
+   "channel": "Stephen Taylor",
+   "durationMin": 7,
+   "summary": "A beginner lesson on playing drums along to a song.",
+   "level": 4,
+   "start": null
+  },
+  {
+   "id": "38CLWMiWf4E",
+   "lessons": [
+    "play-along"
+   ],
+   "title": "The 5 Easiest Songs To Play On Drums",
+   "channel": "Drumeo",
+   "durationMin": 10.5,
+   "summary": "Five easy songs that are good starting points for playing along.",
+   "level": 4,
+   "start": null
+  }
+ ]
+}

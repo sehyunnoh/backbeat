@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { glossary, type GlossaryGroup } from '../data/glossary';
+
+const groups: GlossaryGroup[] = ['Kit', 'Rhythm', 'Technique'];
+const byGroup = (g: GlossaryGroup) => glossary.filter((t) => t.group === g);
+---
+
+<Base title="Glossary" section="learn" description="Drum words explained in plain English for beginners.">
+  <div class="wrap">
+    <p class="eyebrow">Reference</p>
+    <h1>Glossary</h1>
+    <p class="lead">Drum words in plain English. Skim it now, come back whenever a word trips you up.</p>
+
+    <nav class="jump" aria-label="Glossary sections">
+      {groups.map((g) => <a class="btn small ghost" href={`#${g.toLowerCase()}`}>{g}</a>)}
+    </nav>
+
+    {groups.map((g) => (
+      <section id={g.toLowerCase()} class="group">
+        <h2>{g}</h2>
+        <dl>
+          {byGroup(g).map((t) => (
+            <div class="item">
+              <dt>{t.term}</dt>
+              <dd>{t.meaning}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .lead { color: var(--ink-2); max-width: 55ch; font-size: 1.1rem; }
+  .jump { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+  .group { scroll-margin-top: 80px; }
+  dl { display: grid; gap: 0.75rem; margin: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .item { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0.85rem 1rem; }
+  dt { font: 700 1.05rem var(--font-display); margin-bottom: 0.2rem; }
+  dd { margin: 0; color: var(--ink-2); font-size: 0.97rem; line-height: 1.55; }
+</style>

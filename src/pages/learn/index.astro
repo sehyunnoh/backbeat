@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import LessonList from '../../components/LessonList.astro';
+import Meter from '../../components/Meter.astro';
+import { levels } from '../../data/levels';
+import { getLessons } from '../../lib/lessons';
+
+const lessons = await getLessons();
+---
+
+<Base title="Lessons" section="learn" description="All Backbeat drum lessons, level by level.">
+  <div class="wrap">
+    <p class="eyebrow">The path</p>
+    <h1>Lessons</h1>
+    <p class="lead">Go in order. Each lesson is short. When one feels comfortable, tick it off and move on.</p>
+
+    {levels.map((lv) => {
+      const ls = lessons.filter((l) => l.data.level === lv.id);
+      return (
+        <section class="level" id={`level-${lv.id}`} aria-labelledby={`h-${lv.id}`}>
+          <header>
+            <p class="eyebrow">Level {lv.id}</p>
+            <h2 id={`h-${lv.id}`}>{lv.title}</h2>
+            <p>{lv.blurb}</p>
+            <Meter ids={ls.map((l) => l.id)} />
+          </header>
+          <LessonList lessons={ls} all={lessons} />
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+<style>
+  .lead { color: var(--ink-2); max-width: 55ch; font-size: 1.1rem; }
+  .level { margin-top: 2.5rem; display: grid; gap: 1rem; scroll-margin-top: 80px; }
+  .level header { max-width: 60ch; display: grid; gap: 0.3rem; }
+  .level h2 { margin: 0; }
+  .level header p { margin: 0; }
+  .level header .eyebrow { margin-bottom: 0; }
+</style>

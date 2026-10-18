@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Meter from '../components/Meter.astro';
+import LessonList from '../components/LessonList.astro';
+import { levels } from '../data/levels';
+import { getLessons, lessonHref } from '../lib/lessons';
+import { allVideos } from '../lib/videos';
+
+const lessons = await getLessons();
+const order = JSON.stringify(lessons.map((l) => ({ id: l.id, href: lessonHref(l), title: l.data.title })));
+---
+
+<Base title="Progress" section="progress" description="Your lesson progress on this device.">
+  <div class="wrap">
+    <p class="eyebrow">Your practice</p>
+    <h1>Progress</h1>
+
+    <div class="card total">
+      <Meter ids={lessons.map((l) => l.id)} label="All lessons" />
+      <a class="btn" href="#" data-continue={order}><span data-continue-label>Start</span></a>
+    </div>
+
+    <div class="grid cols-3 levels">
+      {levels.map((lv) => {
+        const ls = lessons.filter((l) => l.data.level === lv.id);
+        return (
+          <div class="card">
+            <p class="eyebrow">Level {lv.id}</p>
+            <h3>{lv.title}</h3>
+            <Meter ids={ls.map((l) => l.id)} />
+          </div>
+        );
+      })}
+    </div>
+
+    <p class="videos">Videos watched: <strong data-video-count={allVideos.map((v) => v.id).join(',')}>0 / {allVideos.length}</strong></p>
+
+    <h2>Every lesson</h2>
+    <LessonList lessons={lessons} all={lessons} />
+
+    <section class="reset">
+      <h2>Your data</h2>
+      <p>Progress is saved only in this browser on this device. It will not follow you to your phone or another browser, and clearing site data removes it.</p>
+      <button type="button" class="btn ghost small" data-reset-progress>Reset all progress</button>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .total { display: grid; gap: 1rem; margin-top: 1rem; }
+  .levels { margin-top: 1rem; }
+  .levels h3 { margin: 0 0 0.6rem; }
+  .levels .eyebrow { margin-bottom: 0.2rem; }
+  .videos { margin-top: 1.2rem; font-weight: 600; }
+  .reset { margin-top: 3rem; max-width: 60ch; }
+</style>

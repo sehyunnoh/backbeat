@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Metronome from '../components/Metronome.astro';
+---
+
+<Base title="Metronome" section="metronome" description="A simple, accurate online metronome for drum practice, 40 to 200 BPM.">
+  <div class="wrap">
+    <p class="eyebrow">Practice tool</p>
+    <h1>Metronome</h1>
+    <p class="lead">Start slow. If you can play it clean and relaxed ten times in a row, nudge the tempo up by 4 to 5 BPM.</p>
+    <Metronome bpm={80} />
+    <section class="tips">
+      <h2>How to use it</h2>
+      <ul>
+        <li>Choose how many beats are in a bar. 4 is the normal setting for most beats.</li>
+        <li>Switch the click to eighth notes when you want to hear the "&amp;" between beats.</li>
+        <li>Your TD-1DMK module also has its own metronome. See the lesson on the sound module.</li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .lead { color: var(--ink-2); max-width: 55ch; font-size: 1.1rem; }
+  .tips { max-width: 60ch; }
+</style>

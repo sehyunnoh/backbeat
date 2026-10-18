@@ -1,0 +1,24 @@
+---
+import VideoCard from './VideoCard.astro';
+import type { Video } from '../lib/types';
+
+interface Props { videos: Video[]; title?: string; intro?: string }
+const { videos, title = 'Watch', intro } = Astro.props;
+---
+
+{videos.length > 0 && (
+  <section class="watch">
+    <h2>{title}</h2>
+    {intro && <p class="intro">{intro}</p>}
+    <div class="list">
+      {videos.map((v) => <VideoCard video={v} />)}
+    </div>
+  </section>
+)}
+
+<style>
+  .watch { margin-top: 2.5rem; }
+  .watch h2 { margin-top: 0; }
+  .intro { color: var(--ink-2); max-width: 60ch; }
+  .list { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+</style>

@@ -1,0 +1,77 @@
+---
+const tips = [
+  { n: 1, text: 'Sit tall but relaxed. Shoulders down, not hunched up toward your ears.' },
+  { n: 2, text: 'Thighs roughly level with the floor, or sloping slightly down toward your knees. Not higher than your hips.' },
+  { n: 3, text: 'Forearms roughly level when the sticks rest on the snare, elbows loosely bent.' },
+  { n: 4, text: 'Feet resting on the pedals with your heels near the footboards, ankles loose.' },
+];
+---
+
+<figure class="posture figure">
+  <svg viewBox="0 0 520 330" role="img" aria-label="Side view of a drummer: upright back, thighs roughly level, forearms level to the snare, feet on the pedals.">
+    <rect x="2" y="2" width="516" height="326" rx="18" fill="var(--surface)" stroke="var(--line)" stroke-width="2" />
+    <line x1="20" y1="298" x2="500" y2="298" stroke="var(--ink-2)" stroke-width="3" stroke-linecap="round" />
+
+    <!-- throne -->
+    <rect x="132" y="196" width="96" height="14" rx="7" fill="var(--ink)" />
+    <rect x="176" y="210" width="8" height="88" fill="var(--ink-2)" />
+    <path d="M150 298 L180 280 L210 298" fill="none" stroke="var(--ink-2)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- snare + stand -->
+    <rect x="388" y="195" width="6" height="103" fill="var(--ink-2)" />
+    <ellipse cx="391" cy="190" rx="62" ry="9" fill="#d4e9f1" stroke="var(--snare)" stroke-width="3" />
+
+    <!-- kick pedal -->
+    <path d="M282 296 L350 284" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" />
+
+    <!-- body: hip -> shoulder -->
+    <g stroke="var(--ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M190 192 L200 98" stroke="var(--accent)" />
+      <path d="M190 192 L290 200" stroke="#3a3128" />
+      <path d="M290 200 L292 276" stroke="#3a3128" />
+    </g>
+    <g stroke="var(--ink)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M200 100 L228 152" stroke="var(--accent)" />
+      <path d="M228 152 L318 168" stroke="var(--surface-2)" />
+    </g>
+    <circle cx="206" cy="66" r="24" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="3" />
+    <circle cx="318" cy="168" r="7" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="3" />
+    <path d="M318 168 L384 189" stroke="#c99a5b" stroke-width="5" stroke-linecap="round" />
+    <path d="M286 276 L330 280" stroke="var(--ink)" stroke-width="10" stroke-linecap="round" />
+
+    <!-- number badges -->
+    {
+      [
+        { n: 1, x: 168, y: 92 },
+        { n: 2, x: 250, y: 232 },
+        { n: 3, x: 270, y: 128 },
+        { n: 4, x: 338, y: 252 },
+      ].map((b) => (
+        <g>
+          <circle cx={b.x} cy={b.y} r="15" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.5" />
+          <text x={b.x} y={b.y + 5.5} text-anchor="middle" class="num">{b.n}</text>
+        </g>
+      ))
+    }
+  </svg>
+  <ol class="tips">
+    {
+      tips.map((t) => (
+        <li>
+          <span class="badge">{t.n}</span>
+          <span>{t.text}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption>Side view, simplified. Your kit is a little different, so use this as a checklist, not an exact blueprint.</figcaption>
+</figure>
+
+<style>
+  .posture { max-width: 760px; }
+  svg { width: 100%; height: auto; display: block; }
+  .num { font: 800 15px var(--font-display); fill: var(--ink); }
+  .tips { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.6rem; }
+  .tips li { display: flex; gap: 0.75rem; align-items: flex-start; margin: 0; }
+  .badge { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); display: grid; place-items: center; font: 800 0.85rem var(--font-display); }
+</style>

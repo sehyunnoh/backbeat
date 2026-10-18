@@ -1,0 +1,57 @@
+---
+// Full / Down / Tap / Up strokes: where the stick starts and where it ends.
+const PIVOT = { x: 30, y: 100 };
+const L = 125;
+const HIGH = -45;
+const LOW = 10;
+const tip = (deg: number) => {
+  const r = (deg * Math.PI) / 180;
+  return { x: PIVOT.x + L * Math.cos(r), y: PIVOT.y + L * Math.sin(r) };
+};
+
+const strokes = [
+  { name: 'Full stroke', from: HIGH, to: HIGH, text: 'Start high, hit, let it rebound all the way back up. Loud and full.' },
+  { name: 'Down stroke', from: HIGH, to: LOW, text: 'Start high, hit, then stop the stick low. It sets up a quiet note right after.' },
+  { name: 'Tap stroke', from: LOW, to: LOW, text: 'Start low, hit, stay low. Soft and controlled, the stick barely lifts.' },
+  { name: 'Up stroke', from: LOW, to: HIGH, text: 'Start low, hit, then let the stick rise up. It sets up a loud note after.' },
+];
+---
+
+<div class="strokes figure">
+  {
+    strokes.map((s) => {
+      const a = tip(s.from);
+      const b = tip(s.to);
+      return (
+        <figure class="s">
+          <svg viewBox="0 0 200 170" role="img" aria-label={`${s.name}: stick starts ${s.from === HIGH ? 'high' : 'low'} and ends ${s.to === HIGH ? 'high' : 'low'}.`}>
+            <rect x="96" y="128" width="96" height="10" rx="5" fill="#d4e9f1" stroke="var(--snare)" stroke-width="2.5" />
+            <line x1={PIVOT.x} y1={PIVOT.y} x2={b.x} y2={b.y} stroke="var(--ink-2)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 9" />
+            <line x1={PIVOT.x} y1={PIVOT.y} x2={a.x} y2={a.y} stroke="var(--ink)" stroke-width="8" stroke-linecap="round" />
+            <line x1={PIVOT.x} y1={PIVOT.y} x2={a.x} y2={a.y} stroke="var(--accent)" stroke-width="4.5" stroke-linecap="round" />
+            <circle cx={PIVOT.x} cy={PIVOT.y} r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5" />
+            <circle cx={a.x} cy={a.y} r="5.5" fill="var(--good)" />
+            <circle cx={b.x} cy={b.y} r="5.5" fill="var(--kick)" />
+          </svg>
+          <figcaption>
+            <strong>{s.name}</strong>
+            <span>{s.text}</span>
+          </figcaption>
+        </figure>
+      );
+    })
+  }
+  <p class="key"><span class="dot go"></span> start of the stroke &nbsp; <span class="dot end"></span> where the stick ends up (dotted line)</p>
+</div>
+
+<style>
+  .strokes { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); margin: 1.6rem 0; }
+  .s { margin: 0; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0.75rem; display: grid; gap: 0.5rem; align-content: start; }
+  svg { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 10px; }
+  figcaption { display: grid; gap: 0.2rem; font-size: 0.92rem; color: var(--ink-2); margin: 0; }
+  figcaption strong { font-family: var(--font-display); font-size: 1rem; color: var(--ink); }
+  .key { grid-column: 1 / -1; margin: 0; font-size: 0.88rem; color: var(--ink-2); }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: -1px; }
+  .go { background: var(--good); }
+  .end { background: var(--kick); }
+</style>

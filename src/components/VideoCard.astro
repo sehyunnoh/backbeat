@@ -1,0 +1,69 @@
+---
+import type { Video } from '../lib/types';
+interface Props {
+  video: Video;
+}
+const { video } = Astro.props;
+const watchUrl = `https://www.youtube.com/watch?v=${video.id}${video.start ? `&t=${video.start}s` : ''}`;
+const embed = `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0${video.start ? `&start=${video.start}` : ''}`;
+const duration = video.durationMin ? `${video.durationMin < 1 ? '<1' : `~${Math.round(video.durationMin)}`} min` : null;
+---
+
+<article class="video" data-video={video.id}>
+  <button type="button" class="thumb" data-embed={embed} aria-label={`Play video: ${video.title}`}>
+    <img
+      src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+      alt=""
+      loading="lazy"
+      width="480"
+      height="360"
+    />
+    <span class="play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+    </span>
+    {duration && <span class="dur">{duration}</span>}
+  </button>
+  <div class="meta">
+    <h4>{video.title}</h4>
+    <p class="by">{video.channel}</p>
+    <p class="why">{video.summary}</p>
+    <div class="actions">
+      <button type="button" class="btn small ghost" data-watched-btn={video.id} aria-pressed="false">
+        <span data-label>Mark as watched</span>
+      </button>
+      <a class="yt" href={watchUrl} target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .video { display: grid; gap: 0.9rem; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0.75rem; }
+  .thumb { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: var(--ink); }
+  .thumb :global(img), .thumb :global(iframe) { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; }
+  .play { position: absolute; inset: 0; margin: auto; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; border: 2px solid var(--ink); }
+  .dur { position: absolute; right: 8px; bottom: 8px; background: rgba(35, 29, 22, 0.88); color: #fff; font: 700 0.75rem var(--font-display); padding: 2px 8px; border-radius: 999px; }
+  .meta h4 { font-size: 1rem; margin: 0 0 0.15rem; line-height: 1.3; }
+  .by { margin: 0 0 0.4rem; font-size: 0.85rem; color: var(--ink-2); }
+  .why { margin: 0 0 0.7rem; font-size: 0.95rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; }
+  .yt { font-size: 0.9rem; font-weight: 600; }
+</style>
+
+<script>
+  // Click-to-load: the YouTube player is only requested when someone presses play.
+  document.addEventListener('click', (e) => {
+    const thumb = (e.target as HTMLElement).closest<HTMLButtonElement>('.video .thumb[data-embed]');
+    if (!thumb) return;
+    const frame = document.createElement('iframe');
+    frame.src = thumb.dataset.embed!;
+    frame.title = thumb.getAttribute('aria-label') ?? 'Video';
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    const wrap = document.createElement('div');
+    wrap.className = thumb.className;
+    wrap.style.cssText = 'aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000';
+    wrap.append(frame);
+    thumb.replaceWith(wrap);
+  });
+</script>

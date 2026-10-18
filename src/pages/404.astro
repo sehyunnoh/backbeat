@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+---
+
+<Base title="Page not found">
+  <div class="wrap">
+    <p class="eyebrow">404</p>
+    <h1>Missed the beat.</h1>
+    <p>That page does not exist. Let's get you back on the count.</p>
+    <p><a class="btn" href={url('')}>Back to the start</a></p>
+  </div>
+</Base>

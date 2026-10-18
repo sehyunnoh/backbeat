@@ -1,0 +1,40 @@
+---
+import Check from './Check.astro';
+import { lessonHref, lessonNumber, type Lesson } from '../lib/lessons';
+
+interface Props { lessons: Lesson[]; all: Lesson[] }
+const { lessons, all } = Astro.props;
+---
+
+<ol class="lessons">
+  {lessons.map((l) => (
+    <li>
+      <a href={lessonHref(l)}>
+        <Check id={l.id} />
+        <span class="txt">
+          <span class="num">{lessonNumber(l, all)}</span>
+          <strong>{l.data.title}</strong>
+          <span class="sum">{l.data.summary}</span>
+        </span>
+        <span class="min">{l.data.minutes} min</span>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .lessons { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+  .lessons li { margin: 0; }
+  a {
+    display: flex; align-items: center; gap: 0.9rem; min-height: 64px;
+    padding: 0.75rem 1rem; text-decoration: none; color: var(--ink);
+    background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius);
+    transition: border-color 0.12s, transform 0.12s;
+  }
+  a:hover { border-color: var(--ink); transform: translateY(-1px); color: var(--ink); }
+  .txt { display: grid; gap: 0.1rem; flex: 1; min-width: 0; }
+  .num { font: 700 0.75rem var(--font-display); letter-spacing: 0.1em; color: var(--link); }
+  strong { font-family: var(--font-display); font-size: 1.05rem; }
+  .sum { color: var(--ink-2); font-size: 0.92rem; line-height: 1.4; }
+  .min { flex: none; font: 700 0.8rem var(--font-display); color: var(--ink-2); background: var(--surface-2); border-radius: 999px; padding: 0.15rem 0.7rem; }
+</style>

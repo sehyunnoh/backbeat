@@ -1,0 +1,94 @@
+---
+// Top-down map of the Roland TD-1DMK as you see it sitting on the throne.
+// Numbers are keyed to the legend underneath so the SVG stays readable on a phone.
+const parts = [
+  { n: 1, name: 'Crash', how: 'Stick', note: 'Big accent: start of a section, end of a fill.', kind: 'cym', x: 135, y: 85, r: 56 },
+  { n: 2, name: 'Tom 1', how: 'Stick', note: 'Highest tom. Used in fills.', kind: 'drum', x: 250, y: 140, r: 42 },
+  { n: 3, name: 'Tom 2', how: 'Stick', note: 'Middle tom, right next to Tom 1.', kind: 'drum', x: 372, y: 140, r: 42 },
+  { n: 4, name: 'Ride', how: 'Stick', note: 'Steady, ringing pulse (an alternative to the hi-hat).', kind: 'cym', x: 505, y: 100, r: 58 },
+  { n: 5, name: 'Hi-hat', how: 'Stick + left foot', note: 'The pad is fixed; the pedal changes it from closed to open.', kind: 'cym', x: 80, y: 235, r: 46 },
+  { n: 6, name: 'Snare', how: 'Stick', note: 'The backbeat drum, right in front of you.', kind: 'snare', x: 225, y: 260, r: 48 },
+  { n: 7, name: 'Tom 3', how: 'Stick', note: 'Lowest tom, on your right.', kind: 'drum', x: 450, y: 250, r: 48 },
+  { n: 8, name: 'Kick', how: 'Right foot', note: 'The pad you hit with the kick pedal. Lowest, biggest sound.', kind: 'kick', x: 340, y: 305, r: 0 },
+  { n: 9, name: 'Hi-hat pedal', how: 'Left foot', note: 'Press to close the hi-hat, lift to open it.', kind: 'pedal', x: 110, y: 350, r: 0 },
+  { n: 10, name: 'Sound module', how: 'Hands', note: 'The little box with buttons: sounds, metronome, coach.', kind: 'module', x: 40, y: 150, r: 0 },
+];
+---
+
+<figure class="kit figure">
+  <svg viewBox="0 0 600 440" role="img" aria-label="Top-down map of the TD-1DMK: crash, tom 1, tom 2 and ride at the back; hi-hat, snare, tom 3 and kick closer to the drummer.">
+    <rect x="2" y="2" width="596" height="436" rx="18" fill="var(--surface)" stroke="var(--line)" stroke-width="2" />
+    <text x="300" y="30" text-anchor="middle" class="dir">BACK OF THE KIT</text>
+
+    <!-- throne -->
+    <circle cx="300" cy="400" r="30" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="2.5" />
+    <text x="300" y="405" text-anchor="middle" class="dir">YOU</text>
+
+    {
+      parts.map((p) => {
+        if (p.kind === 'kick') {
+          return (
+            <g>
+              <rect x={p.x - 38} y={p.y - 42} width="76" height="84" rx="14" fill="#f6d9d5" stroke="var(--kick)" stroke-width="3" />
+              <rect x={p.x - 10} y={p.y + 46} width="20" height="40" rx="6" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="2" />
+            </g>
+          );
+        }
+        if (p.kind === 'pedal') {
+          return <rect x={p.x - 24} y={p.y - 30} width="48" height="70" rx="10" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="2.5" />;
+        }
+        if (p.kind === 'module') {
+          return <rect x={p.x - 24} y={p.y - 28} width="30" height="56" rx="6" fill="var(--ink)" />;
+        }
+        const fill = p.kind === 'cym' ? 'var(--accent-soft)' : p.kind === 'snare' ? '#d4e9f1' : 'var(--surface)';
+        const stroke = p.kind === 'cym' ? 'var(--accent)' : p.kind === 'snare' ? 'var(--snare)' : 'var(--ink)';
+        return (
+          <g>
+            <circle cx={p.x} cy={p.y} r={p.r} fill={fill} stroke={stroke} stroke-width="3.5" />
+            {p.kind === 'cym' && <circle cx={p.x} cy={p.y} r={p.r * 0.25} fill="none" stroke={stroke} stroke-width="2" />}
+          </g>
+        );
+      })
+    }
+
+    {
+      parts.map((p) => {
+        const bx = p.kind === 'kick' ? p.x : p.kind === 'pedal' ? p.x : p.kind === 'module' ? p.x - 9 : p.x;
+        const by = p.kind === 'kick' ? p.y : p.kind === 'pedal' ? p.y + 5 : p.y;
+        return (
+          <g>
+            <circle cx={bx} cy={by} r="15" fill="var(--ink)" />
+            <text x={bx} y={by + 5.5} text-anchor="middle" class="num">{p.n}</text>
+          </g>
+        );
+      })
+    }
+  </svg>
+
+  <ol class="legend">
+    {
+      parts.map((p) => (
+        <li>
+          <span class="badge">{p.n}</span>
+          <div>
+            <strong>{p.name}</strong> <span class="how">{p.how}</span>
+            <p>{p.note}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption>Roland TD-1DMK seen from above. Positions are typical; your own setup can be a little different.</figcaption>
+</figure>
+
+<style>
+  .kit { max-width: 760px; }
+  svg { width: 100%; height: auto; display: block; }
+  .dir { font: 700 12px var(--font-display); letter-spacing: 0.14em; fill: var(--ink-2); }
+  .num { font: 800 15px var(--font-display); fill: #fff; }
+  .legend { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .legend li { display: flex; gap: 0.75rem; align-items: flex-start; margin: 0; }
+  .legend p { margin: 0; font-size: 0.93rem; color: var(--ink-2); line-height: 1.45; }
+  .badge { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 0.85rem var(--font-display); margin-top: 2px; }
+  .how { display: inline-block; font-size: 0.78rem; font-weight: 700; background: var(--accent-soft); border-radius: 999px; padding: 0 0.55rem; margin-left: 0.3rem; }
+</style>
