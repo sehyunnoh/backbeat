@@ -144,3 +144,8 @@ li { margin-bottom: 0.35em; }
 .meter[data-empty='true'] .fill { border-right: 0; }
 .meter .count { font: 700 0.85rem var(--font-display); color: var(--ink-2); display: flex; justify-content: space-between; }
 .meter[data-complete='true'] .fill { background: var(--good); border-color: var(--good); }
+
+/* ---------- Collapsible answers ---------- */
+.lesson-body details { margin: 1rem 0; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0 1rem; }
+.lesson-body details[open] { padding-bottom: 1rem; }
+.lesson-body summary { cursor: pointer; font: 700 1rem var(--font-display); min-height: 48px; display: flex; align-items: center; list-style-position: inside; }

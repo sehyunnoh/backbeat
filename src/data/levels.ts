@@ -62,4 +62,18 @@ export const levels: Level[] = [
     blurb:
       'How songs are built, how to learn one step by step, how to organise your practice, and what to explore next.',
   },
+  {
+    id: 8,
+    title: 'Style Sampler',
+    tagline: 'Funk, reggae, ballads and swing.',
+    blurb:
+      'Use what you know to play the basic groove of four different styles. A small taste of how far the same skills can take you.',
+  },
+  {
+    id: 9,
+    title: 'Reading Drum Music',
+    tagline: 'Understand real sheet music.',
+    blurb:
+      'Learn note values, where each drum lives on the staff, and read simple grooves in standard notation. Every example shows the familiar chart next to the real staff.',
+  },
 ];

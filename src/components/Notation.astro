@@ -1,0 +1,124 @@
+---
+// Real five-line drum notation for a pattern, drawn as inline SVG.
+// Uses the same lane strings as <Pattern />, so a chart and its staff always match.
+import { parsePattern, type LaneId } from '../lib/pattern';
+import { STAFF_LINES, layoutBar } from '../lib/notation';
+
+interface Props {
+  title?: string;
+  description?: string;
+  beats?: number;
+  crash?: string;
+  ride?: string;
+  hh?: string;
+  tom1?: string;
+  tom2?: string;
+  tom3?: string;
+  sn?: string;
+  bd?: string;
+}
+
+const { title, description, beats = 4, ...rest } = Astro.props;
+const laneStrings: Partial<Record<LaneId, string>> = {};
+for (const id of ['crash', 'ride', 'hh', 'tom1', 'tom2', 'tom3', 'sn', 'bd'] as LaneId[]) {
+  const v = (rest as Record<string, string | undefined>)[id];
+  if (v !== undefined) laneStrings[id] = v;
+}
+const p = parsePattern(laneStrings, undefined, beats);
+const bars = Array.from({ length: p.bars }, (_, i) => layoutBar(p, i, beats));
+const label = `${title ?? 'Drum notation'}: ${p.bars} ${p.bars === 1 ? 'bar' : 'bars'} in ${beats}/4`;
+---
+
+<figure class="notation figure">
+  {(title || description) && (
+    <figcaption class="top">
+      {title && <strong>{title}</strong>}
+      {description && <span>{description}</span>}
+    </figcaption>
+  )}
+  <div class="scroll" role="group" aria-label="Drum notation (scrolls sideways on small screens)" tabindex="0">
+    {bars.map((b, i) => (
+      <svg viewBox={`0 -12 ${b.width} 152`} width={b.width} role="img" aria-label={`${label}, bar ${i + 1}`}>
+        {STAFF_LINES.map((y) => <line x1="6" y1={y} x2={b.endX} y2={y} class="staff" />)}
+        <line x1={b.endX} y1="40" x2={b.endX} y2="80" class="bar" />
+        <line x1="6" y1="40" x2="6" y2="80" class="bar" />
+        {i === 0 && (
+          <g>
+            <rect x="14" y="46" width="4.5" height="28" rx="1" class="ink" />
+            <rect x="23" y="46" width="4.5" height="28" rx="1" class="ink" />
+            <text x="46" y="58" text-anchor="middle" class="ts">{beats}</text>
+            <text x="46" y="78" text-anchor="middle" class="ts">4</text>
+          </g>
+        )}
+        {b.prims.map((q) => {
+          switch (q.k) {
+            case 'head':
+              return q.shape === 'x' ? (
+                <path d={`M${q.x - 4.6} ${q.y - 4.6}L${q.x + 4.6} ${q.y + 4.6}M${q.x + 4.6} ${q.y - 4.6}L${q.x - 4.6} ${q.y + 4.6}`} class="xhead" />
+              ) : (
+                <ellipse cx={q.x} cy={q.y} rx="6" ry="4.4" transform={`rotate(-20 ${q.x} ${q.y})`} class="ink" />
+              );
+            case 'line':
+              return <line x1={q.x1} y1={q.y1} x2={q.x2} y2={q.y2} stroke-width={q.w} class="stroke" />;
+            case 'beam':
+              return <rect x={q.x1} y={q.down ? q.y - 5 : q.y} width={q.x2 - q.x1} height="5" class="ink" />;
+            case 'flag':
+              return (
+                <path
+                  d={q.down ? `M${q.x} ${q.y} c0 -6 10 -9 9 -20` : `M${q.x} ${q.y} c0 6 10 9 9 20`}
+                  class="flag"
+                />
+              );
+            case 'rest':
+              return q.kind === 'q' ? (
+                <path
+                  d={`M${q.x - 2} ${q.y - 13} L${q.x + 4} ${q.y - 5} L${q.x - 3} ${q.y + 2} L${q.x + 3} ${q.y + 9} c-6 -3 -8 3 -3 7`}
+                  class="rest"
+                />
+              ) : (
+                <g class="rest">
+                  <circle cx={q.x - 2} cy={q.y - 4} r="2.3" class="ink" />
+                  <path d={`M${q.x + 3} ${q.y - 5} Q${q.x} ${q.y - 3} ${q.x - 2} ${q.y - 4} M${q.x + 3} ${q.y - 5} L${q.x - 2} ${q.y + 9}`} fill="none" />
+                </g>
+              );
+            case 'accent':
+              return <path d={`M${q.x - 5} ${q.y - 3.5} L${q.x + 5} ${q.y} L${q.x - 5} ${q.y + 3.5}`} class="accent" />;
+            case 'ghost':
+              return (
+                <g class="ghost">
+                  <path d={`M${q.x - 10} ${q.y - 6} Q${q.x - 14} ${q.y} ${q.x - 10} ${q.y + 6}`} />
+                  <path d={`M${q.x + 10} ${q.y - 6} Q${q.x + 14} ${q.y} ${q.x + 10} ${q.y + 6}`} />
+                </g>
+              );
+            case 'open':
+              return <circle cx={q.x} cy={q.y} r="3.4" class="openhat" />;
+            case 'text':
+              return <text x={q.x} y={q.y} text-anchor="middle" class={q.cls}>{q.t}</text>;
+          }
+        })}
+      </svg>
+    ))}
+  </div>
+</figure>
+
+<style>
+  .notation { margin: 1.6rem 0; padding: 0.9rem; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); display: grid; gap: 0.6rem; }
+  .top { display: grid; gap: 0.15rem; margin: 0; font-size: 0.95rem; color: var(--ink-2); }
+  .top strong { font: 700 1.1rem var(--font-display); color: var(--ink); }
+  .scroll { overflow-x: auto; display: grid; gap: 0.4rem; }
+  svg { display: block; height: auto; min-width: 100%; max-width: none; }
+  .staff { stroke: var(--ink); stroke-width: 1.3; }
+  .bar { stroke: var(--ink); stroke-width: 2; }
+  .ink { fill: var(--ink); }
+  .stroke { stroke: var(--ink); stroke-linecap: butt; }
+  .xhead { stroke: var(--ink); stroke-width: 2.3; stroke-linecap: round; fill: none; }
+  .flag { stroke: var(--ink); stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .rest { stroke: var(--ink); stroke-width: 2.2; fill: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
+  .rest[d] { fill: none; }
+  .accent { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ghost path { stroke: var(--ink); stroke-width: 1.5; fill: none; stroke-linecap: round; }
+  .openhat { stroke: var(--ink); stroke-width: 1.8; fill: none; }
+  .ts { font: 800 26px var(--font-display); fill: var(--ink); }
+  .count { font: 600 12px var(--font-display); fill: var(--ink-2); }
+  .count.beat { font-weight: 800; fill: var(--ink); }
+</style>

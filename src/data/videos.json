@@ -137,7 +137,9 @@
   {
    "id": "ovh8gt86Bes",
    "lessons": [
-    "counting-beats"
+    "counting-beats",
+    "drum-staff",
+    "note-values"
    ],
    "title": "How to Start Reading Drum Set Music - Basic Notation Tutorial",
    "channel": "Drew Wooton",
@@ -986,6 +988,187 @@
    "durationMin": 14.5,
    "summary": "Five keys for moving from beginner to more advanced drumming.",
    "level": 7,
+   "start": null
+  },
+  {
+   "id": "QMv7y0N_eEM",
+   "lessons": [
+    "funk-groove"
+   ],
+   "title": "3 Essential Funk Grooves For Beginners! | DRUM LESSON - That Swedish Drummer",
+   "channel": "That Swedish Drummer",
+   "durationMin": 8.5,
+   "summary": "Teaches three essential funk grooves aimed at beginners.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "8FfQLaAvI-s",
+   "lessons": [
+    "funk-groove"
+   ],
+   "title": "10 Beginner Funk Drum Beats | Go From \"No\" To \"Pro\"",
+   "channel": "Stephen Taylor",
+   "durationMin": 8,
+   "summary": "Ten beginner-level funk drum beats, from simple to a bit more syncopated.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "8HRwB6AOnj0",
+   "lessons": [
+    "reggae-one-drop"
+   ],
+   "title": "Learn Reggae Drums! 3 Variations for Beginners on the One Drop",
+   "channel": "Dylan Garrison",
+   "durationMin": 6,
+   "summary": "Shows three beginner variations of the reggae one drop beat.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "mxUHE5XC_mI",
+   "lessons": [
+    "reggae-one-drop"
+   ],
+   "title": "The Basics Of Reggae Drumming // One Drop, Rockers & Steppers | Drum Lesson With Chris Hoffmann",
+   "channel": "ArtOfDrumming",
+   "durationMin": 12.5,
+   "summary": "Covers the basics of reggae drumming; the one drop is joined by the related rockers and steppers patterns.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "0T_uk4b_6q4",
+   "lessons": [
+    "twelve-eight-ballad"
+   ],
+   "title": "Drumming in 12/8: Levels 1-3",
+   "channel": "Love To Learn Drums",
+   "durationMin": 7,
+   "summary": "Three graded levels of playing drum grooves in 12/8.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "Mhdyvs7NVOA",
+   "lessons": [
+    "twelve-eight-ballad"
+   ],
+   "title": "Simple 12\\8 Blues Drum Beat - Get On The Drums (L#9)",
+   "channel": "Get On The Drums",
+   "durationMin": 3.5,
+   "summary": "A short lesson on a simple 12/8 blues drum beat.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "Gc4OHMhOyAg",
+   "lessons": [
+    "swing-ride"
+   ],
+   "title": "The Swing Cymbal Beat (Beginner Jazz Drumming Lesson)",
+   "channel": "Sacha K",
+   "durationMin": 6,
+   "summary": "Beginner jazz lesson on the swing cymbal beat.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "THTMUZLg6ZI",
+   "lessons": [
+    "swing-ride"
+   ],
+   "title": "Introduction to Jazz Drumming - The Ride Cymbal Pattern with John Riley",
+   "channel": "ArtOfDrumming",
+   "durationMin": 5.5,
+   "summary": "John Riley introduces the jazz ride cymbal pattern.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "0gZlmX5fPmE",
+   "lessons": [
+    "style-practice"
+   ],
+   "title": "5 Styles Any Beginner Drummer Can Play (Lesson)",
+   "channel": "Drumeo",
+   "durationMin": 15,
+   "summary": "Introduces five styles of drumming a beginner can start playing.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "tQgsf6S4T1E",
+   "lessons": [
+    "style-practice"
+   ],
+   "title": "10 Beginner Drum Beats | Go From \"No\" To \"Pro\"",
+   "channel": "Stephen Taylor",
+   "durationMin": 18.5,
+   "summary": "Ten beginner drum beats to practise; a broad set of grooves rather than one style.",
+   "level": 8,
+   "start": null
+  },
+  {
+   "id": "KVcb5pPN97M",
+   "lessons": [
+    "note-values"
+   ],
+   "title": "Note Values: Understanding 1/4, 8th and 16th notes",
+   "channel": "I Hit Drums",
+   "durationMin": 10,
+   "summary": "Explains quarter, eighth and sixteenth note values.",
+   "level": 9,
+   "start": null
+  },
+  {
+   "id": "XXI9vd6Zblg",
+   "lessons": [
+    "note-values"
+   ],
+   "title": "Basic Music Theory For Drummers (Part 1) | DRUM LESSON - Note Value",
+   "channel": "That Swedish Drummer",
+   "durationMin": 9.5,
+   "summary": "Part 1 of a music theory series for drummers, focused on note values.",
+   "level": 9,
+   "start": null
+  },
+  {
+   "id": "ZQ6SlOzVa3k",
+   "lessons": [
+    "drum-staff",
+    "reading-practice"
+   ],
+   "title": "How To READ DRUMS Like a PRO! | Basic Music Theory For Drummers (Part 4) - DRUM LESSON",
+   "channel": "That Swedish Drummer",
+   "durationMin": 10,
+   "summary": "Part 4 of a drummer music theory series on reading drum notation.",
+   "level": 9,
+   "start": null
+  },
+  {
+   "id": "VXF4XmE43ns",
+   "lessons": [
+    "drum-staff"
+   ],
+   "title": "The Basics of Reading (drum notation) for Beginners! Drum Lesson",
+   "channel": "Eric Fisher",
+   "durationMin": 7,
+   "summary": "Beginner basics of reading drum notation.",
+   "level": 9,
+   "start": null
+  },
+  {
+   "id": "TuYqqWurZBw",
+   "lessons": [
+    "reading-practice"
+   ],
+   "title": "Reading Drum Music - Ex1 | BEGINNERS DRUMS | Scrolling Scores",
+   "channel": "Super Easy Drums",
+   "durationMin": 3,
+   "summary": "A scrolling-score exercise for beginners to read drum music along with.",
+   "level": 9,
    "start": null
   }
  ]
