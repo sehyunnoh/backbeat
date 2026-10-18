@@ -1,6 +1,7 @@
 // Build-time parsing of the tiny pattern notation used in lesson files.
 //
 //   x o X O  = a hit (X / O = accent)      - or .  = rest
+//   g        = ghost note (very quiet, drums only)
 //   hi-hat lane: x = closed, o = open      bars are separated by a space
 //   sticking: R L (hands), - = no stroke
 //
@@ -28,11 +29,13 @@ export interface HitEvent {
   lane: LaneId;
   voice: Voice;
   accent: boolean;
+  ghost: boolean;
 }
 
 export interface Cell {
   kind: 'hit' | 'open' | 'rest';
   accent: boolean;
+  ghost: boolean;
 }
 
 export interface ParsedPattern {
@@ -43,6 +46,7 @@ export interface ParsedPattern {
   sticking: string[][] | null;
   counts: string[];
   events: HitEvent[][];
+  hasGhost: boolean;
 }
 
 const COUNT_LABELS: Record<number, string[]> = {
@@ -92,9 +96,13 @@ export function parsePattern(
     cymbal: LANE_META[id].cymbal,
     bars: b.map((bar) =>
       bar.split('').map<Cell>((ch) => {
-        if (ch === '-' || ch === '.') return { kind: 'rest', accent: false };
+        if (ch === '-' || ch === '.') return { kind: 'rest', accent: false, ghost: false };
+        if (ch === 'g') {
+          if (LANE_META[id].cymbal) throw new Error(`Pattern lane "${id}": ghost notes (g) are for drums, not cymbals`);
+          return { kind: 'hit', accent: false, ghost: true };
+        }
         if (!'xoXO'.includes(ch)) throw new Error(`Pattern lane "${id}": unknown symbol "${ch}"`);
-        return { kind: id === 'hh' && ch.toLowerCase() === 'o' ? 'open' : 'hit', accent: ch === 'X' || ch === 'O' };
+        return { kind: id === 'hh' && ch.toLowerCase() === 'o' ? 'open' : 'hit', accent: ch === 'X' || ch === 'O', ghost: false };
       }),
     ),
   }));
@@ -115,11 +123,13 @@ export function parsePattern(
           lane: lane.id,
           voice: cell.kind === 'open' ? 'hihatOpen' : LANE_META[lane.id].voice,
           accent: cell.accent,
+          ghost: cell.ghost,
         });
       }
       events.push(hits);
     }
   }
 
-  return { bars, stepsPerBar, stepsPerBeat, lanes, sticking: stickingBars, counts, events };
+  const hasGhost = events.some((hits) => hits.some((h) => h.ghost));
+  return { bars, stepsPerBar, stepsPerBeat, lanes, sticking: stickingBars, counts, events, hasGhost };
 }

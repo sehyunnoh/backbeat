@@ -72,7 +72,7 @@ const config = {
                 {c.kind === 'rest' ? (
                   <i class="rest" />
                 ) : (
-                  <i class:list={['note', lane.id, { x: lane.cymbal && c.kind !== 'open', open: c.kind === 'open', acc: c.accent }]} />
+                  <i class:list={['note', lane.id, { x: lane.cymbal && c.kind !== 'open', open: c.kind === 'open', acc: c.accent, ghost: c.ghost }]} />
                 )}
               </span>
             ))}
@@ -102,7 +102,7 @@ const config = {
   </div>
   <label class="click-opt"><input type="checkbox" data-click /> Add a click on every beat</label>
   <p class="legend">
-    × = cymbal / hi-hat · ○ = open hi-hat · ● = drum · bigger = accent (play it louder) · tap a row name to mute it.
+    × = cymbal / hi-hat · ○ = open hi-hat · ● = drum · bigger = accent (play it louder){p.hasGhost ? ' · small ring = ghost note (play it very quietly)' : ''} · tap a row name to mute it.
   </p>
 </section>
 
@@ -140,6 +140,8 @@ const config = {
   .note { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); transition: transform 0.05s; }
   .note.bd { background: var(--kick); }
   .note.sn { background: var(--snare); }
+  .note.ghost { width: 9px; height: 9px; background: transparent; border: 2px solid var(--ink-2); }
+  .note.sn.ghost { border-color: var(--snare); }
   .note.acc { transform: scale(1.35); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px currentColor; }
   .note.x { background: transparent; border-radius: 0; color: var(--hat); }
   .note.x::before, .note.x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 18px; height: 3px; background: currentColor; border-radius: 2px; }
@@ -174,7 +176,7 @@ const config = {
     beats: number;
     stepsPerBar: number;
     stepsPerBeat: number;
-    events: { lane: string; voice: Voice; accent: boolean }[][];
+    events: { lane: string; voice: Voice; accent: boolean; ghost: boolean }[][];
   }
 
   for (const root of document.querySelectorAll<HTMLElement>('[data-pattern]')) {
@@ -210,7 +212,7 @@ const config = {
         }
         for (const ev of cfg.events[idx]) {
           if (muted.has(ev.lane)) continue;
-          playVoice(ev.voice, time, ev.accent ? 1 : 0.65);
+          playVoice(ev.voice, time, ev.ghost ? 0.25 : ev.accent ? 1 : 0.65);
         }
       },
       onVisual: (step) => {

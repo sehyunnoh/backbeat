@@ -6,7 +6,7 @@ const lessons = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/lessons' }),
   schema: z.object({
     title: z.string(),
-    level: z.number().int().min(0).max(4),
+    level: z.number().int().min(0).max(9),
     order: z.number().int(),
     summary: z.string(),
     minutes: z.number().int(),

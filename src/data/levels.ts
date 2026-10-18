@@ -41,4 +41,25 @@ export const levels: Level[] = [
     blurb:
       'A fill is a short break at the end of a phrase. Learn to start with a crash, play a snare fill and a tom fill, then glue groove and fill together.',
   },
+  {
+    id: 5,
+    title: 'Faster & Fresher',
+    tagline: 'Sixteenth notes and new grooves.',
+    blurb:
+      'Count four notes per beat, play a sixteenth-note hi-hat beat, and meet three new grooves: ride cymbal, half-time and four-on-the-floor.',
+  },
+  {
+    id: 6,
+    title: 'Groove Toolbox',
+    tagline: 'Triplets, shuffle, ghost notes.',
+    blurb:
+      'Add the tools that make a beat feel alive: triplets and the shuffle, very quiet ghost notes, controlled dynamics and two more rudiments.',
+  },
+  {
+    id: 7,
+    title: 'Playing Real Music',
+    tagline: 'From exercises to songs.',
+    blurb:
+      'How songs are built, how to learn one step by step, how to organise your practice, and what to explore next.',
+  },
 ];
