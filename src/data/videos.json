@@ -765,7 +765,8 @@
   {
    "id": "F8RGbgTY83A",
    "lessons": [
-    "triplets"
+    "triplets",
+    "triplet-flow"
    ],
    "title": "Triplets Made Easy: A Beginner Drummer's Guide to Fast Progress",
    "channel": "Drum Drum Drum",
@@ -849,7 +850,8 @@
   {
    "id": "8yKTjYFrjYw",
    "lessons": [
-    "dynamics"
+    "dynamics",
+    "space-dynamics"
    ],
    "title": "This will change your drumming forever (3 tips on dynamics)",
    "channel": "Tim Buell",
@@ -1169,6 +1171,166 @@
    "durationMin": 3,
    "summary": "A scrolling-score exercise for beginners to read drum music along with.",
    "level": 9,
+   "start": null
+  },
+  {
+   "id": "VlhtBMIPqiE",
+   "lessons": [
+    "solo-basics",
+    "build-solo"
+   ],
+   "title": "Learn A Solid Drum Solo In 5 Minutes",
+   "channel": "Jeff Randall",
+   "durationMin": 4.5,
+   "summary": "A short walkthrough of a solid, simple drum solo that a newer player can learn quickly.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "wS57JodaBiI",
+   "lessons": [
+    "solo-basics",
+    "space-dynamics"
+   ],
+   "title": "3 Simple Tips For Better Drum Solos 🥁",
+   "channel": "Love To Learn Drums",
+   "durationMin": 3.5,
+   "summary": "Three quick tips for making drum solos sound better.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "Cr2D7bTI6gE",
+   "lessons": [
+    "solo-basics",
+    "call-response"
+   ],
+   "title": "All great drum solos use these FIVE things.",
+   "channel": "Drumeo",
+   "durationMin": 18.5,
+   "summary": "Covers five elements shared by good drum solos; broader than beginner level in places but useful for what makes a solo work.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "AyH7dUqpvDY",
+   "lessons": [
+    "build-solo"
+   ],
+   "title": "Playing Your First Drum Solo! - Progressive Subdivision Series Lesson #4",
+   "channel": "Rob Brown",
+   "durationMin": 17,
+   "summary": "A lesson on playing a first drum solo, part of a progressive subdivision series.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "GDO0JopRWv0",
+   "lessons": [
+    "build-solo",
+    "around-the-drums"
+   ],
+   "title": "How To Play Drum Solos That FLOW!",
+   "channel": "Jeff Randall",
+   "durationMin": 5,
+   "summary": "Tips for making drum solos flow from one idea to the next.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "faU5Uvy6gTk",
+   "lessons": [
+    "call-response"
+   ],
+   "title": "Drum Lesson:Solo ideas and basic phrasing",
+   "channel": "Joe Crabtree's Drum Lessons",
+   "durationMin": 12.5,
+   "summary": "Solo ideas and basic phrasing for drum solos.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "wQ4571V9HMo",
+   "lessons": [
+    "call-response"
+   ],
+   "title": "How to Build a Drum Solo Using Motivic Development",
+   "channel": "Jazz at Lincoln Center's JAZZ ACADEMY",
+   "durationMin": 7.5,
+   "summary": "Shows how to build a drum solo by developing a short idea; taught in a jazz context.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "A0wnBlEvKek",
+   "lessons": [
+    "call-response"
+   ],
+   "title": "4 bar drum solos - Question and Answer",
+   "channel": "Tony Bartone",
+   "durationMin": 1.5,
+   "summary": "A very short demo of four-bar drum solos in a question-and-answer format.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "NTjKVo3KCsA",
+   "lessons": [
+    "space-dynamics"
+   ],
+   "title": "Make Drumming More Dynamic With Pauses | Tips & Tricks | Music Pandit",
+   "channel": "Music Pandit",
+   "durationMin": 2,
+   "summary": "Shows how pauses can make drumming more dynamic.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "6u-AhPkF8q4",
+   "lessons": [
+    "around-the-drums"
+   ],
+   "title": "Playing on the toms and snare for beginners (single stroke roll)",
+   "channel": "Drum Ape",
+   "durationMin": 6.5,
+   "summary": "Beginner lesson on playing single strokes across the toms and snare.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "lGfJQeq0G0Q",
+   "lessons": [
+    "around-the-drums"
+   ],
+   "title": "Can’t Go Fast Around The Drums? Try This",
+   "channel": "Dave Major",
+   "durationMin": 5.5,
+   "summary": "A tip for moving around the drums faster.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "BqqTcNTuE4A",
+   "lessons": [
+    "triplet-flow"
+   ],
+   "title": "4 Beginner Triplet Fills in less than a Minute - Daily Drum Lesson",
+   "channel": "Daily Drum Lesson",
+   "durationMin": 1,
+   "summary": "Four quick beginner triplet fills.",
+   "level": 10,
+   "start": null
+  },
+  {
+   "id": "UA9Eh7nIHvQ",
+   "lessons": [
+    "triplet-flow"
+   ],
+   "title": "How To Play Triplet Drum Fills - 5 Levels",
+   "channel": "Mike Johnston",
+   "durationMin": 11.5,
+   "summary": "Triplet drum fills presented in five levels of increasing difficulty.",
+   "level": 10,
    "start": null
   }
  ]

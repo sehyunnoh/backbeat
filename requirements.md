@@ -1,6 +1,6 @@
 ﻿# 드럼 입문 연습 사이트 요구사항 (Draft v0.2)
 
-> 상태: **컨펌 완료, 개발 진행 중** — Level 0~9 구현됨 (Level 3~9는 1차 완료 후 추가, 배포: https://sehyunnoh.github.io/backbeat/).
+> 상태: **컨펌 완료, 개발 진행 중** — Level 0~10 구현됨 (Level 3~10은 1차 완료 후 추가, 배포: https://sehyunnoh.github.io/backbeat/).
 
 ## 1. 배경 및 목표
 
@@ -166,6 +166,7 @@
 4. Level 0 → Level 1 → Level 2 콘텐츠 (SVG 일러스트 + YouTube 영상 리서치 포함)
 5. 기기별(폰/태블릿/랩탑) 확인 및 다듬기
 6. (이후) Level 3~4 콘텐츠 추가
+
 
 
 

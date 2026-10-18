@@ -76,4 +76,11 @@ export const levels: Level[] = [
     blurb:
       'Learn note values, where each drum lives on the staff, and read simple grooves in standard notation. Every example shows the familiar chart next to the real staff.',
   },
+  {
+    id: 10,
+    title: 'Drum Solo Basics',
+    tagline: 'Say something on your own.',
+    blurb:
+      'A drum solo is a short story told with the drums you already know. Learn to keep the pulse, move around the kit, use space and build a simple four-bar solo of your own.',
+  },
 ];
